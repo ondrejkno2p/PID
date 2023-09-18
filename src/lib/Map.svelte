@@ -67,60 +67,33 @@
         throw new Error('Function not implemented.');
     }
 </script>
-<div class="wrap">
-<div class="map">
-    <svg viewBox="0 0 100 100">
+<div class="card h-fit m-0 overflow-hidden hidden 2xl:block shrink-0">
+<div class="relative m-0 w-[600px]">
+    <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0">
         {#each $found_stops as stop}
             <a href={"/station/" + encodeURI(stop.name) + "/" + stop.id} on:blur={blur} on:mouseout={blur} on:focus={()=>{$hover_stop=stop.id}} on:mouseover={()=>{$hover_stop=stop.id}}>
-                <circle cx={(stop.lon-center.lon+dx/2)*100/dx} cy={-(stop.lat-center.lat-dy/2)*100/dy} r={stop.id==$hover_stop?3:2} />
+                <circle class="fill-primary-400" cx={(stop.lon-center.lon+dx/2)*100/dx} cy={-(stop.lat-center.lat-dy/2)*100/dy} r={stop.id==$hover_stop?3:2} />
             </a>
         {/each}
     </svg>
-    {#await preload(url)}
+    <div class="h-fit">
+        {#await preload(url)}
         <img 
+            class="w-full m-0 p-0"
             width="600" 
             height="600" 
             alt={"Mapa "+$search_stop_name}
         />
     {:then base64}
         <img
+            class="w-full m-0 p-0"
             src="{base64}"
             width="600" 
             height="600" 
             alt={"Mapa "+$search_stop_name}
         />
     {/await}
+    </div>
+
 </div>
 </div>
-<style>
-    div.wrap {
-        display:flex;
-        flex-direction:column;
-        border: var(--grey) 2px solid;
-        border-radius: 0.5em;
-        overflow: hidden;
-        height: fit-content;
-        width: 600px;
-        height: fit-content;
-    }
-    div.map {
-        position:relative;
-        display: inline-block;
-    }
-    div.map img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        width: 600px;
-    }
-    div.map svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }   
-    circle {
-        fill:var(--yellow);
-    }
-</style>

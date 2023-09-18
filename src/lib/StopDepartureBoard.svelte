@@ -2,7 +2,7 @@
     import { onDestroy, onMount } from "svelte";
     import {search_stop_name} from '$lib/stores'
     import Departure from "$lib/Departure.svelte";
-    import Slider from "$lib/Slider.svelte";
+    import { SlideToggle } from '@skeletonlabs/skeleton';
     let checked:boolean=false;
     export let stop:stop;
     export let departures:Array<departure>;
@@ -21,7 +21,7 @@
             throw new Error("F");
         }
     };
-    let interval:number;
+    let interval: string | number | NodeJS.Timeout | undefined;
     onMount(()=>{
         interval=setInterval(()=>{
             new_departures=fetchDepartures().then((value)=>{departures=value;return value;},(reason)=>{return reason})
@@ -31,25 +31,23 @@
         clearInterval(interval);
     })
 </script>
-<div class="stop">
-    <div class="departure_board">
-        <div class=departure_board_header>
-            <h2>
+<div class="card h-max shrink-0">
+    <div class="table-container ">
+        <div class="flex justify-between text-xl p-2">
                 {stop.name} {#if stop.platform} ({stop.platform}) {/if}
-            </h2>
-            <Slider bind:checked={checked}/>
+            <SlideToggle name="checked" bind:checked={checked} />
         </div>
-        <table>
-            <thead>
+        <table class="table sm:table-fiexd table-auto max-w-xs md:max-w-xl table-hover table-compact max-h-xl overflow-hidden">
+            <thead class=" ">
                 <tr>
-                    <th style="width:5em;" scope="col">Linka</th>
-                    <th style="width:14em;" scope="col">Směr</th>
-                    <th style="width:5em;" scope="col">{checked?"Příjezd":"Odjezd"}</th>
-                    <th style="width:6em;" scope="col">Zpoždění</th>
-                    <th style="width:5em;" scope="col">Za</th>
+                    <th class="" scope="col">Linka</th>
+                    <th class="" scope="col">Směr</th>
+                    <th class="" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="hidden sm:table-cell" scope="col">Zpoždění</th>
+                    <th class="hidden sm:table-cell" scope="col">Za</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="overflow-y-scroll">
             {#if checked}
                 {#each arrivals?arrivals:[] as arrival (arrival.trip_id)}
                     <Departure departure={arrival}/>
@@ -63,28 +61,3 @@
         </table>
     </div>
 </div>
-<style>
-    div.departure_board{
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        border-radius: 0.5em;
-        padding: 1em;
-        height: fit-content;
-        border: 2px var(--grey) solid;
-    }
-    table th {
-        text-align: left;
-    }
-    div.departure_board_header {
-        display: flex;
-        justify-content: space-between;
-        border-bottom: var(--grey) solid 0.1em;
-        margin-bottom: 1em;
-    }
-    div.stop {
-        display: block;
-        flex-direction: row;
-        max-width: fit-content;
-    }
-</style>

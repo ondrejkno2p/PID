@@ -7,21 +7,11 @@
     //     mounted=true;
     // })
 </script>
-<div class="stops">
-    {#each $found_stops as result (result.id)}
-        <Stop id={result.id} name={result.name} platform={result.platform}/>
-    {/each}
+<div class="card h-fit max-w-sm overflow-hidden lg:block hidden shrink-0">
+    <ol class="list w-full p-2">
+        {#each $found_stops as result (result.id)}
+            <Stop id={result.id} name={result.name} platform={result.platform}/>
+        {/each}
+    </ol>
 </div>
-<style>
-    div.stops {
-        display: flex;
-        flex-direction: column;
-        font-size: x-large;
-        border: 2px solid var(--grey);
-        border-top: 0px;
-        border-radius: 0.5em;
-        overflow: hidden;
-        height: fit-content;
-        width: auto;
-    }
-</style>
+

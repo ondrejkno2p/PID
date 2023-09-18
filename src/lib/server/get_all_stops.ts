@@ -20,5 +20,4 @@ golem_stops.forEach((golem_stop:golem_stop)=>{
         stop_names=[...stop_names,stop_name];
     }
 });
-console.table(stop_names)
 

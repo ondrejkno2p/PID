@@ -3,7 +3,6 @@
     import type { PageData } from "./$types";
     import {search_stop_name} from '$lib/stores'
     import Departure from "$lib/Departure.svelte";
-    import Slider from "$lib/Slider.svelte";
     import Map from "$lib/Map.svelte";
     import StopDepartureBoard from "$lib/StopDepartureBoard.svelte";
     import FindStop from "$lib/FindStop.svelte";

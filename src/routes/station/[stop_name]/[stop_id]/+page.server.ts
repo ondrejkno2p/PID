@@ -1,4 +1,4 @@
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 
@@ -8,11 +8,9 @@ export const load = (async ({params,fetch}) => {
     const stop_res       = await fetch("/api/stop/"+stop_id);
     const departures_res = await fetch("/api/departures/"+stop_id);
     const arrivals_res = await fetch("/api/arrivals/"+stop_id);
-
     if(!stop_res.ok){
-        throw redirect(303, "/station/"+encodeURI(params.stop_name))
+        throw error(500)
     }
-
     const stop:stop = await stop_res.json();    
     const departures:Array<departure> = departures_res.ok?(await departures_res.json()):[];
     const arrivals:Array<departure> = arrivals_res.ok?(await arrivals_res.json()):[];

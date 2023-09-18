@@ -6,23 +6,10 @@
     const focus = ()=>{$hover_stop=id};
     const blur = ()=>{$hover_stop=''};
 </script>
-    <div style="background-color:{$hover_stop==id?"var(--yellow)":"white"}">
-        <a href={"/station/" + encodeURI(name) + "/" + id} on:blur={blur} on:mouseout={blur} on:focus={focus} on:mouseover={focus}>
-            {name}{(platform?' ('+platform+')':'')}
-        </a>
+<li class={"w-full !rounded-none "+($hover_stop==id?" bg-primary-300-600-token":"")}>
+    <a class="w-full" href={"/station/" + encodeURI(name) + "/" + id} on:blur={blur} on:mouseout={blur} on:focus={focus} on:mouseover={focus}>
+        {name}{(platform?' ('+platform+')':'')}
+    </a>
+</li>
 
-    </div>
-<style>
-    div {
-        all:unset;
-        font-size:x-large;
-        background-color: white;
-        color:black;
-        border-top: 2px solid var(--grey);
-        padding: 0.2em;
-        display: block;
-    }
-    a {
-        display: block;
-    }
-</style>
+
