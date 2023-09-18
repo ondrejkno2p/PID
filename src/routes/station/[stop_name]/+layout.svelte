@@ -15,7 +15,7 @@
 </svelte:head>
 
 <div class="flex justify-center w-full h-full">
-    <div class="relative xl:justify-start lg:justify-around justify-center flex h-full w-full px-2 ">
+    <div class="relative xl:justify-between lg:justify-around justify-center flex h-full w-full px-2 ">
         <div class="lg:block hidden shrink-0">
             <Stops/>
         </div>

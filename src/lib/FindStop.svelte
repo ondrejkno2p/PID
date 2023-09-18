@@ -47,7 +47,7 @@
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div use:clickOutside={()=>{suggestions=[];}} class="max-w-xs relative">
     <div class="input-group input-group-divider grid-cols-[auto_auto] w-full">
-        <input type="search" placeholder={$search_stop_name} bind:value={stop_name} class="w-full p-2 rounded-bl-full rounded-tl-full"
+        <input type="search" placeholder="Najdi Zastávku..." bind:value={stop_name} class="w-full p-2 rounded-bl-full rounded-tl-full"
         on:input={
                 ()=>{
                     search_suggestions=get_suggestion(stop_name).then((value)=>{suggestions=value; return value})
@@ -68,6 +68,7 @@
     {#if suggestions.length!=0}
     <div class="absolute z-10 card w-full max-w-sm max-h-48 p-0 overflow-y-auto">
             <Autocomplete
+                transitions={false}
                 on:selection={(event)=>{
                     stop_name=event.detail.label
                     results = find_stop();
