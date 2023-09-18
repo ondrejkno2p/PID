@@ -67,7 +67,7 @@
         throw new Error('Function not implemented.');
     }
 </script>
-<div class="card h-fit m-0 overflow-hidden hidden 2xl:block shrink-0">
+<div class="card h-fit m-0 overflow-hidden">
 <div class="relative m-0 w-[600px]">
     <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0">
         {#each $found_stops as stop}

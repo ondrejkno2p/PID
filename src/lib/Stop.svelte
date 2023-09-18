@@ -5,9 +5,11 @@
     import { hover_stop } from "./stores";
     const focus = ()=>{$hover_stop=id};
     const blur = ()=>{$hover_stop=''};
+    import { getDrawerStore } from "@skeletonlabs/skeleton";
+	const drawerStore = getDrawerStore();
 </script>
 <li class={"w-full !rounded-none "+($hover_stop==id?" bg-primary-300-600-token":"")}>
-    <a class="w-full" href={"/station/" + encodeURI(name) + "/" + id} on:blur={blur} on:mouseout={blur} on:focus={focus} on:mouseover={focus}>
+    <a class="w-full" href={"/station/" + encodeURI(name) + "/" + id} on:blur={blur} on:mouseout={blur} on:focus={focus} on:mouseover={focus} on:click={()=>{drawerStore.close()}}>
         {name}{(platform?' ('+platform+')':'')}
     </a>
 </li>

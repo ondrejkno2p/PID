@@ -7,7 +7,7 @@
     //     mounted=true;
     // })
 </script>
-<div class="card h-fit max-w-sm overflow-hidden lg:block hidden shrink-0">
+<div class="card h-fit max-w-sm overflow-hidden">
     <ol class="list w-full p-2">
         {#each $found_stops as result (result.id)}
             <Stop id={result.id} name={result.name} platform={result.platform}/>

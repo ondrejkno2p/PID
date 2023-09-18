@@ -16,9 +16,13 @@
 
 <div class="flex justify-center w-full h-full">
     <div class="relative justify-center flex h-full w-5/6 ">
-        <Stops/>
+        <div class="lg:block hidden shrink-0">
+            <Stops/>
+        </div>
         <span class="divider-vertical h-full mx-2 lg:block hidden" />
-        <Map/>
+        <div class="hidden 2xl:block shrink-0">
+            <Map/>
+        </div>
         <span class="divider-vertical h-full mx-2 hidden 2xl:block " />
         <slot/>
     </div>
