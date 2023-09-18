@@ -31,20 +31,20 @@
         clearInterval(interval);
     })
 </script>
-<div class="card h-max shrink-0">
+<div class="card h-max shrink-0 w-fit">
     <div class="table-container ">
         <div class="flex justify-between text-xl p-2">
                 {stop.name} {#if stop.platform} ({stop.platform}) {/if}
             <SlideToggle name="checked" bind:checked={checked} />
         </div>
-        <table class="table sm:table-fiexd table-auto max-w-xs md:max-w-xl table-hover table-compact max-h-xl overflow-hidden">
+        <table class="table sm:table-fixed table-auto max-w-full sm:max-w-xl table-hover table-compact max-h-xl overflow-hidden">
             <thead class=" ">
                 <tr>
                     <th class="" scope="col">Linka</th>
-                    <th class="" scope="col">Směr</th>
-                    <th class="" scope="col">{checked?"Příjezd":"Odjezd"}</th>
-                    <th class="hidden sm:table-cell" scope="col">Zpoždění</th>
-                    <th class="hidden sm:table-cell" scope="col">Za</th>
+                    <th class="w-52" scope="col">Směr</th>
+                    <th class="w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
+                    <th class="w-16 hidden sm:table-cell" scope="col">Za</th>
                 </tr>
             </thead>
             <tbody class="overflow-y-scroll">

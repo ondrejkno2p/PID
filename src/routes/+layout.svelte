@@ -24,8 +24,8 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="hidden sm:block text-3xl uppercase">PID</strong>
-				<button class="sm:hidden" on:click={()=>{drawerStore.open()}}>
+				<strong class="hidden lg:block text-3xl uppercase">PID</strong>
+				<button class="lg:hidden btn-icon variant-filled-primary" on:click={()=>{drawerStore.open()}}>
 					<Fa icon={faBars}/>
 				</button>
 			</svelte:fragment>
@@ -41,9 +41,16 @@
 	</svelte:fragment>
 	<svelte:fragment slot="pageHeader">
 	</svelte:fragment>
+	<hr>
 	<slot />
 	<svelte:fragment slot="footer">
-		<h2>Data poskytnuta projektem Golem</h2>
+		<div class="flex justify-between p-2">
+			<h2>Data poskytnuta Golem.io</h2>
+			<div class="sm:hidden">
+				<LightSwitch/>
+			</div>
+		</div>
+
 	</svelte:fragment>
 	<Drawer
 	width="w-fit"

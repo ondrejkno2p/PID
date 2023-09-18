@@ -15,15 +15,15 @@
 </svelte:head>
 
 <div class="flex justify-center w-full h-full">
-    <div class="relative justify-center flex h-full w-5/6 ">
+    <div class="relative xl:justify-start lg:justify-around justify-center flex h-full w-full px-2 ">
         <div class="lg:block hidden shrink-0">
             <Stops/>
         </div>
-        <span class="divider-vertical h-full mx-2 lg:block hidden" />
-        <div class="hidden 2xl:block shrink-0">
+        <span class="divider-vertical h-full mx-2 xl:block hidden" />
+        <div class="hidden xl:block shrink-0">
             <Map/>
         </div>
-        <span class="divider-vertical h-full mx-2 hidden 2xl:block " />
+        <span class="divider-vertical h-full mx-2 hidden xl:block " />
         <slot/>
     </div>
 </div>

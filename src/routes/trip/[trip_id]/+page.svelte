@@ -12,7 +12,7 @@
         return string;
     };
 </script>
-<div class="card h-max">
+<div class="card h-max w-max">
     
     <h4>{name} směr
         <a href={"/station/" + encodeURI(last_stop.stop_name) + "/" + last_stop.stop_id}>
