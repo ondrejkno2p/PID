@@ -17,10 +17,26 @@
         const string = arr[0]+':'+arr[1];
         return string;
     };
+    import {hover_stop} from '$lib/stores'
+    import {page} from '$app/stores'
+    const hover = ()=>{
+       $hover_stop=departure.stop_id
+    }
+    const blur = ()=>{
+        $hover_stop=''
+    }
 </script>
 
-<tr>
-    <td>{departure.platform}</td>
+<tr class="!p-0" on:mouseover={hover} on:mouseout={blur} on:blur={blur} on:focus={hover}>
+    {#if $hover_stop==departure.stop_id}
+        <td class="!p-0 bg-surface-300-600-token">
+            <a class="block px-3" href={$page.url+"/"+departure.stop_id}>{departure.platform}</a>
+        </td>
+    {:else}
+        <td class="!p-0">
+            <a class="block px-3" href={$page.url+"/"+departure.stop_id}>{departure.platform}</a>
+        </td> 
+    {/if}
     <td>{departure.name}</td>
     <!-- <td><a href="/trip/{departure.trip_id}">{departure.name}</a></td> -->
     <td class="">

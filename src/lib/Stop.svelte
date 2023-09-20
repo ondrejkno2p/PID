@@ -8,11 +8,10 @@
     import { getDrawerStore } from "@skeletonlabs/skeleton";
 	const drawerStore = getDrawerStore();
     import { page } from "$app/stores";
-    
 </script>
 <li 
     class={"!m-0 w-full !rounded-none "+($hover_stop==id?" bg-surface-300-600-token ":"") + ($page.params?.stop_id==id?"!bg-primary-500 text-base-token":"")}>
-    <a aria-disabled="true" class="px-4 py-1 w-full" href={"/station/" + encodeURI(name) + "/" + id} on:blur={blur} on:mouseout={blur} on:focus={focus} on:mouseover={focus} on:click={()=>{drawerStore.close()}}>
+    <a aria-disabled="true" class="px-4 py-1 w-full" href={"/station/" + encodeURI(name) + "/" + id} on:blur={blur} on:mouseout={blur} on:focus={focus} on:mouseover={focus} on:click={()=>{$hover_stop='';drawerStore.close()}}>
         {name}{(platform?' ('+platform+')':'')}
     </a>
 </li>

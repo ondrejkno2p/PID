@@ -2,10 +2,13 @@
     import {found_stops,hover_stop,search_stop_name} from '$lib/stores';
     const map_api_key='b634dae013b649629110c39cfe7d4c6a';
     const url_static_maps='https://maps.geoapify.com/v1/staticmap';
+    import { getDrawerStore } from "@skeletonlabs/skeleton";
+	const drawerStore = getDrawerStore();
     const blur = ()=>{$hover_stop=''};
     import {page} from '$app/stores'
 	import { onMount } from 'svelte';
 	import { onNavigate } from '$app/navigation';
+    $hover_stop=''
     $: center = get_center($found_stops)
     $: zoom = get_bounds(center,$found_stops)
     $: geoapify_params = {
@@ -30,6 +33,9 @@
         lon = lon/n;
         return {lat, lon}
     }
+    onMount(()=>{
+        $hover_stop=''
+    })
     const get_bounds = (center:{lat:number,lon:number},stops:Array<stop>) => {
         let dlon=0;
         let dlat=0;
@@ -78,11 +84,11 @@
         throw new Error('Function not implemented.');
     }
 </script>
-<div class="card h-fit m-0 overflow-hidden">
-<div class="relative m-0 w-[600px]">
+<div class="card h-fit m-0 overflow-hidden !rounded-none xl:!rounded-container-token">
+<div class="relative m-0 w-[100vh] xl:max-w-[600px]">
     <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0 ">
         {#each $found_stops as stop}
-            <a href={"/station/" + encodeURI(stop.name) + "/" + stop.id} on:blur={blur} on:mouseout={blur} on:focus={()=>{$hover_stop=stop.id}} on:mouseover={()=>{$hover_stop=stop.id}}>
+            <a href={"/station/" + encodeURI(stop.name) + "/" + stop.id} on:blur={blur} on:mouseout={blur} on:focus={()=>{$hover_stop=stop.id}} on:mouseover={()=>{$hover_stop=stop.id}} on:click={()=>{$hover_stop=='';drawerStore.close()}}>
                 <circle class={"dark:fill-surface-500 fill-surface-400 "+($hover_stop==stop.id?"  ":"") + ($page.params?.stop_id==stop.id?"!fill-primary-500":"")} cx={(stop.lon-center.lon+dx/2)*100/dx} cy={-(stop.lat-center.lat-dy/2)*100/dy} r={stop.id==$hover_stop?3:2} />
             </a>
         {/each}

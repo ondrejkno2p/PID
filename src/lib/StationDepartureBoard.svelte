@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onDestroy, onMount } from "svelte";
-    import {search_stop_name} from '$lib/stores'
+    import {search_stop_name, hover_stop} from '$lib/stores'
     import PlatDeparture from "./PlatDeparture.svelte";
     import { SlideToggle } from '@skeletonlabs/skeleton';
     let checked:boolean=false;

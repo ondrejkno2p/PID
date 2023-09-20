@@ -1,10 +1,10 @@
 <script lang="ts">
 	import '../app.postcss';
 	import FindStop from "$lib/FindStop.svelte";
-	import {faBars} from '@fortawesome/free-solid-svg-icons'
+	import {faBars, faMapLocationDot} from '@fortawesome/free-solid-svg-icons'
 	import Map from "$lib/Map.svelte";
 	import Stops from "$lib/Stops.svelte";
-	import { found_stops, search_stop_name } from "$lib/stores";
+	import { found_stops, hover_stop, search_stop_name } from "$lib/stores";
 	import "../app.postcss";
 	import { AppBar, AppRail, AppRailAnchor, AppRailTile, AppShell, Drawer } from '@skeletonlabs/skeleton';
 	$found_stops = [];
@@ -24,9 +24,24 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="hidden lg:block text-3xl uppercase">PID</strong>
-				<button class="lg:hidden btn-icon variant-filled-primary" on:click={()=>{drawerStore.open()}}>
+				<strong class="hidden xl:block text-3xl uppercase">PID</strong>
+				<button class="lg:hidden btn-icon variant-filled-primary"
+				on:click={()=>{
+					$hover_stop=''
+					drawerStore.open({
+						id:"stops",
+						position:"bottom"
+					})}}>
 					<Fa icon={faBars}/>
+				</button>
+				<button class="xl:hidden btn-icon variant-filled-primary"
+				on:click={()=>{
+					$hover_stop=''
+					drawerStore.open({
+						id:"map",
+						position:"right"
+					})}}>
+					<Fa icon={faMapLocationDot}/>
 				</button>
 			</svelte:fragment>
 			<div class="self-center justify-center flex">
@@ -52,10 +67,19 @@
 		</div>
 
 	</svelte:fragment>
+
 	<Drawer
 	width="w-fit"
+	height="h-fit"
 	padding='p-0'
+	rounded='!rounded-none'
+	bgDrawer='bg-transparent'
 	>
-		<Stops></Stops>
+		{#if $drawerStore.id === 'stops'}
+			<Stops/>
+		{:else if $drawerStore.id === 'map'}
+			<Map/>
+		{/if}
 	</Drawer>
 </AppShell>
+
