@@ -85,7 +85,7 @@
     }
 </script>
 <div class="card h-fit m-0 overflow-hidden !rounded-none xl:!rounded-container-token">
-<div class="relative m-0 w-[100vh] xl:max-w-[600px]">
+<div class="relative m-0 max-w-[100vh] max-h-[100vw] xl:max-w-[600px]">
     <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0 ">
         {#each $found_stops as stop}
             <a href={"/station/" + encodeURI(stop.name) + "/" + stop.id} on:blur={blur} on:mouseout={blur} on:focus={()=>{$hover_stop=stop.id}} on:mouseover={()=>{$hover_stop=stop.id}} on:click={()=>{$hover_stop=='';drawerStore.close()}}>
