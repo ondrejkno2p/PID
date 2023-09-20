@@ -1,6 +1,9 @@
 <script lang="ts">
-    import Stops from "$lib/Stops.svelte";
+	import StationDepartureBoard from "$lib/StationDepartureBoard.svelte";
+
+    export let data;
+    $:departures = data.departures as departure[]
+    $:arrivals = data.arrivals as departure[]
+    $:name=data.stop_name as string
 </script>
-<div class="lg:hidden flex justify-center w-full">
-    <Stops/>
-</div>
+<StationDepartureBoard arrivals={arrivals} departures={departures} name={name}/>

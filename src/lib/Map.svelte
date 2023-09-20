@@ -3,6 +3,8 @@
     const map_api_key='b634dae013b649629110c39cfe7d4c6a';
     const url_static_maps='https://maps.geoapify.com/v1/staticmap';
     const blur = ()=>{$hover_stop=''};
+    import {page} from '$app/stores'
+	import { onMount } from 'svelte';
     $: center = get_center($found_stops)
     $: zoom = get_bounds(center,$found_stops)
     $: geoapify_params = {
@@ -51,6 +53,10 @@
     }
     $: dx=360/(Math.pow(2,zoom));
     $: dy=dx*Math.cos(Math.PI*center.lat/180.0);
+    onMount(async () =>{
+        preloaded_image=preload(url);
+    })
+    let preloaded_image:Promise<string>;
     const preload = async (src:string) => {
         const resp = await fetch(src);
         const blob = await resp.blob();
@@ -69,15 +75,15 @@
 </script>
 <div class="card h-fit m-0 overflow-hidden">
 <div class="relative m-0 w-[600px]">
-    <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0">
+    <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0 ">
         {#each $found_stops as stop}
             <a href={"/station/" + encodeURI(stop.name) + "/" + stop.id} on:blur={blur} on:mouseout={blur} on:focus={()=>{$hover_stop=stop.id}} on:mouseover={()=>{$hover_stop=stop.id}}>
-                <circle class="fill-primary-400" cx={(stop.lon-center.lon+dx/2)*100/dx} cy={-(stop.lat-center.lat-dy/2)*100/dy} r={stop.id==$hover_stop?3:2} />
+                <circle class={"dark:fill-surface-500 fill-surface-400 "+($hover_stop==stop.id?"  ":"") + ($page.params?.stop_id==stop.id?"!fill-primary-500":"")} cx={(stop.lon-center.lon+dx/2)*100/dx} cy={-(stop.lat-center.lat-dy/2)*100/dy} r={stop.id==$hover_stop?3:2} />
             </a>
         {/each}
     </svg>
     <div class="h-fit">
-        {#await preload(url)}
+        {#await preloaded_image}
         <img 
             class="w-full m-0 p-0"
             width="600" 

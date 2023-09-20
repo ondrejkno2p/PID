@@ -14,6 +14,8 @@ type departure = {
     scheduled: Date,
     minutes  : string,
     delay    : number,
+    platform : string,
+    stop_id  : string,
 };
 
 type golem_departure = {
@@ -37,6 +39,10 @@ type golem_departure = {
     delay   : {
          seconds    : number,
     },
+    stop :{
+        id:string,
+        platform_code:string,
+    }
 };
 
 type golem_stop = {

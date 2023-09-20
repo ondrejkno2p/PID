@@ -19,6 +19,8 @@ export const GET:RequestHandler=(async ({params}) => {
         let departures : Array<departure> = [];
             golem_departures.forEach((golem_departure:golem_departure) => {
             departures=[...departures,{
+                platform : golem_departure.stop.platform_code,
+                stop_id  : golem_departure.stop.id,
                 name     : golem_departure.route.short_name as string,
                 headsign : golem_departure.trip.headsign as string,
                 trip_id  : golem_departure.trip.id as string,

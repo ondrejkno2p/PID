@@ -1,0 +1,62 @@
+<script lang="ts">
+    import { onDestroy, onMount } from "svelte";
+    import {search_stop_name} from '$lib/stores'
+    import PlatDeparture from "./PlatDeparture.svelte";
+    import { SlideToggle } from '@skeletonlabs/skeleton';
+    let checked:boolean=false;
+    export let departures:Array<departure>;
+    export let arrivals:Array<departure>;
+    export let name:string;
+
+    let new_departures  : Promise<Array<departure>>;
+    async function fetchDepartures() {
+        const departures_res  = await fetch("/api/station/departures/?name="+encodeURI(name));
+        const departures_body:Array<departure> = await departures_res.json();
+        if(departures_res.ok) {
+            return departures_body;
+        }
+        else{
+            throw new Error("F");
+        }
+    };
+    let interval: string | number | NodeJS.Timeout | undefined;
+    onMount(()=>{
+        interval=setInterval(()=>{
+            new_departures=fetchDepartures().then((value)=>{departures=value;return value;},(reason)=>{return reason})
+        },10000);
+    });
+    onDestroy(()=>{
+        clearInterval(interval);
+    })
+</script>
+<div class="card h-max shrink-0 w-fit">
+    <div class="table-container ">
+        <div class="flex justify-between text-xl p-2">
+                {name}
+            <SlideToggle name="checked" bind:checked={checked} />
+        </div>
+        <table class="table sm:table-fixed table-auto max-w-full sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden">
+            <thead class=" ">
+                <tr>
+                    <th class="w-8" scope="col">P</th>
+                    <th class="w-20" scope="col">Linka</th>
+                    <th class="w-52" scope="col">Směr</th>
+                    <th class="w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
+                    <th class="w-16 hidden sm:table-cell" scope="col">Za</th>
+                </tr>
+            </thead>
+            <tbody class="overflow-y-scroll">
+            {#if checked}
+                {#each arrivals?arrivals:[] as arrival ([arrival.trip_id,arrival.stop_id])}
+                    <PlatDeparture departure={arrival}/>
+                {/each}
+            {:else}
+                {#each departures?departures:[] as departure ([departure.trip_id, departure.stop_id])}
+                    <PlatDeparture departure={departure}/>
+                {/each}
+            {/if}
+            </tbody>
+        </table>
+    </div>
+</div>

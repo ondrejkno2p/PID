@@ -8,7 +8,7 @@
     // })
 </script>
 <div class="card h-fit max-w-sm overflow-hidden">
-    <ol class="list w-full p-2">
+    <ol class="list w-full">
         {#each $found_stops as result (result.id)}
             <Stop id={result.id} name={result.name} platform={result.platform}/>
         {/each}

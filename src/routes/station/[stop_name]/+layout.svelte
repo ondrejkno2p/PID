@@ -16,15 +16,20 @@
 
 <div class="flex justify-center w-full h-full">
     <div class="relative xl:justify-between lg:justify-around justify-center flex h-full w-full px-2 ">
-        <div class="lg:block hidden shrink-0">
-            <Stops/>
+        <div class="lg:flex w-1/5 hidden justify-center">
+            <div class="lg:block hidden shrink-0 w-fit">
+                <Stops/>
+            </div>
         </div>
+
         <span class="divider-vertical h-full mx-2 xl:block hidden" />
         <div class="hidden xl:block shrink-0">
             <Map/>
         </div>
         <span class="divider-vertical h-full mx-2 hidden xl:block " />
-        <slot/>
+        <div class="xl:w-2/5">
+            <slot/>
+        </div>
     </div>
 </div>
 
