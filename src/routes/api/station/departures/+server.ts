@@ -5,15 +5,14 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 export const GET = (async ({url}) => {
     const golem_params    = {
         names: url.searchParams.get('name') as string,
+        mode: url.searchParams.get('mode')?url.searchParams.get('mode') as string:"departures",
         minutesAfter: "360" as string,
         limit: "10" as string,
     };
-    console.log(url)
 
     const new_url = url_departure_board+"?"+new URLSearchParams(golem_params).toString();
-    console.log(new_url)
     const golem_res = await fetch(new_url,options);
-    if(!golem_res.ok){
+    if(golem_res && !golem_res.ok){
         throw error(golem_res.status);
     }
     const golem_body = await golem_res.json();

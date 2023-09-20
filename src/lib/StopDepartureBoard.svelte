@@ -11,11 +11,20 @@
     $search_stop_name=stop.name
 
     let new_departures  : Promise<Array<departure>>;
-    async function fetchDepartures() {
-        const departures_res  = await fetch("/api/departures/"+stop_id);
-        const departures_body:Array<departure> = await departures_res.json();
-        if(departures_res.ok) {
-            return departures_body;
+        async function fetchDepartures() {
+        const [departures_res,arrivals_res ]  = await Promise.all([
+            fetch("/api/departures/"+stop_id),
+            fetch("/api/arrivals/"+stop_id),
+        ])
+        const [departures_body,arrivals_body]=await Promise.all([
+            departures_res.json() as Promise<departure[]>,
+            arrivals_res.json() as Promise<departure[]>,
+        ])
+        if(departures_res.ok && arrivals_res) {
+            return {
+                    departures:departures_body,
+                    arrivals:arrivals_body,
+                };
         }
         else{
             throw new Error("F");
@@ -24,7 +33,7 @@
     let interval: string | number | NodeJS.Timeout | undefined;
     onMount(()=>{
         interval=setInterval(()=>{
-            new_departures=fetchDepartures().then((value)=>{departures=value;return value;},(reason)=>{return reason})
+            new_departures=fetchDepartures().then((value)=>{departures=value.departures; arrivals=value.arrivals;return value;},(reason)=>{return reason})
         },10000);
     });
     onDestroy(()=>{

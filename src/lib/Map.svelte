@@ -5,6 +5,7 @@
     const blur = ()=>{$hover_stop=''};
     import {page} from '$app/stores'
 	import { onMount } from 'svelte';
+	import { onNavigate } from '$app/navigation';
     $: center = get_center($found_stops)
     $: zoom = get_bounds(center,$found_stops)
     $: geoapify_params = {
@@ -54,6 +55,10 @@
     $: dx=360/(Math.pow(2,zoom));
     $: dy=dx*Math.cos(Math.PI*center.lat/180.0);
     onMount(async () =>{
+        preloaded_image=preload(url);
+    })
+    onNavigate(async (navigation)=>{
+        if(navigation.to?.params?.stop_name && navigation.from?.params?.stop_name && navigation.to?.params?.stop_name!=navigation.from?.params?.stop_name)
         preloaded_image=preload(url);
     })
     let preloaded_image:Promise<string>;

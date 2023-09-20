@@ -21,7 +21,8 @@
 
 <tr>
     <td>{departure.platform}</td>
-    <td><a href="/trip/{departure.trip_id}">{departure.name}</a></td>
+    <td>{departure.name}</td>
+    <!-- <td><a href="/trip/{departure.trip_id}">{departure.name}</a></td> -->
     <td class="">
             {departure.headsign}
     </td>

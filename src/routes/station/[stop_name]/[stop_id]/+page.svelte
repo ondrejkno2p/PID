@@ -13,9 +13,7 @@
     $search_stop_name=data.stop.name
     $: stop_id = data.stop_id;
     $: stop = data.stop;
-    $: departures = data.departures?data.departures:[];
-    $: arrivals = data.arrivals?data.arrivals:[];
-
-    let new_departures  : Promise<Array<departure>>;
+    $: departures = data.departures;
+    $: arrivals =data.arrivals;
 </script>
 <StopDepartureBoard stop_id={stop_id} stop={stop} departures={departures} arrivals={arrivals}/>

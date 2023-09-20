@@ -8,10 +8,8 @@ const golem_params2    = {
 };
 const url1 = url_stops+"?"+new URLSearchParams(golem_params1).toString();
 const url2 = url_stops+"?"+new URLSearchParams(golem_params2).toString();
-const res1 = await fetch(url1,options);
-const res2 = await fetch(url2,options);
-const body1 = await res1.json();
-const body2 = await res2.json();
+const [res1,res2] = await Promise.all([fetch(url1,options),fetch(url2,options)]);
+const [body1, body2] = await Promise.all([res1.json(),res2.json()]);
 const golem_stops:Array<golem_stop>=[...body1.features,...body2.features];
 export let stop_names:Array<string>=[];
 golem_stops.forEach((golem_stop:golem_stop)=>{

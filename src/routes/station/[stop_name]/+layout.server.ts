@@ -8,12 +8,22 @@ export const load = (async ({params,fetch}) => {
     if(stop_name==undefined) {
         return {stops: new Array<stop>(), stop_name:undefined}
     }
-    const stops_res = await fetch("/api/find_stop"+"?stop_name="+stop_name);
+
+    const [stops_res,departures_res,arrivals_res]=await Promise.all([
+        fetch("/api/find_stop"+"?stop_name="+stop_name),
+        fetch("/api/station/departures?name="+encodeURI(stop_name)),
+        fetch("/api/station/departures?name="+encodeURI(stop_name)+"&mode="+encodeURI("arrivals"))
+    ])
+
     if(!stops_res.ok){
         return {stops:[], stop_name:stop_name, departures:[], arrivals:[]}
     }
-    const departures_res = await fetch("/api/station/departures?name="+encodeURI(stop_name));
-    const departures:Array<departure> = departures_res.ok?(await departures_res.json()):[];
-    const stops:Array<stop> = await stops_res.json();
-    return {stops:stops, stop_name:stop_name, departures:departures, arrivals:departures}
+
+    const [stops,departures,arrivals]= await Promise.all([
+        stops_res.json() as Promise<stop[]>,
+        departures_res.json() as Promise<departure[]>,
+        arrivals_res.json() as Promise<departure[]>,
+    ]);
+
+    return {stops:stops, stop_name:stop_name, departures:departures, arrivals:arrivals}
 }) satisfies LayoutServerLoad;

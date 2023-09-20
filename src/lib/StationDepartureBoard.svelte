@@ -10,10 +10,19 @@
 
     let new_departures  : Promise<Array<departure>>;
     async function fetchDepartures() {
-        const departures_res  = await fetch("/api/station/departures/?name="+encodeURI(name));
-        const departures_body:Array<departure> = await departures_res.json();
-        if(departures_res.ok) {
-            return departures_body;
+        const [departures_res,arrivals_res ]  = await Promise.all([
+            fetch("/api/station/departures?name="+encodeURI(name)),
+            fetch("/api/station/departures?name="+encodeURI(name)+"&mode="+encodeURI('arrivals')),
+        ])
+        const [departures_body,arrivals_body]=await Promise.all([
+            departures_res.json() as Promise<departure[]>,
+            arrivals_res.json() as Promise<departure[]>,
+        ])
+        if(departures_res.ok && arrivals_res.ok) {
+            return {
+                    departures:departures_body,
+                    arrivals:arrivals_body,
+                };
         }
         else{
             throw new Error("F");
@@ -22,7 +31,7 @@
     let interval: string | number | NodeJS.Timeout | undefined;
     onMount(()=>{
         interval=setInterval(()=>{
-            new_departures=fetchDepartures().then((value)=>{departures=value;return value;},(reason)=>{return reason})
+            new_departures=fetchDepartures().then((value)=>{departures=value.departures,arrivals=value.arrivals;return value;},(reason)=>{return reason})
         },10000);
     });
     onDestroy(()=>{
