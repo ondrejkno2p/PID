@@ -38,7 +38,7 @@
         clearInterval(interval);
     })
 </script>
-<div class="card h-max shrink-0 w-fit">
+<div class="card h-max shrink-0 sm:w-fit w-full ">
     <div class="table-container ">
         <div class="flex justify-between text-xl p-2">
                 {name}

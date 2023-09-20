@@ -45,8 +45,8 @@
 
 </script>
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<div use:clickOutside={()=>{suggestions=[];}} class="max-w-xs relative">
-    <div class="input-group input-group-divider grid-cols-[auto_auto] w-full">
+<div use:clickOutside={()=>{suggestions=[];}} class="max-w-[14rem] lg:max-w-xs relative">
+    <div class="flex">
         <input type="search" placeholder="Najdi Zastávku..." bind:value={stop_name} class="w-full p-2 rounded-bl-full rounded-tl-full"
         on:input={
                 ()=>{
@@ -59,7 +59,7 @@
                 results = find_stop();
                 results.then(gotoStation)
             }}
-            class="btn variant-filled-primary rounded-tl-none rounded-bl-none"
+            class="btn variant-filled-primary rounded-tl-none rounded-bl-none min-w-fit"
         >
         <Fa icon={faMagnifyingGlass}>
         </Fa>

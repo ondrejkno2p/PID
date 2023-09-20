@@ -11,7 +11,7 @@
         $hover_stop=''
     })
 </script>
-<div class="card max-w-sm overflow-hidden">
+<div class="card max-w-sm w-full overflow-hidden">
         <a class="block px-4 py-2 w-full"  href={"/station/"+$found_stops[0].name}>
             {$found_stops[0].name}
         </a>

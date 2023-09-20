@@ -15,19 +15,19 @@
 </svelte:head>
 
 <div class="flex justify-center w-full h-full">
-    <div class="relative xl:justify-between lg:justify-around justify-center flex h-full w-full px-2 ">
-        <div class="lg:flex w-1/5 hidden justify-center">
+    <div class="relative xl:justify-between lg:justify-between justify-center flex h-full w-full sm:px-2 px-1 ">
+        <div class="lg:flex xl:w-1/5 w-full hidden justify-start">
             <div class="lg:block hidden shrink-0 w-fit">
                 <Stops/>
             </div>
         </div>
 
-        <span class="divider-vertical h-full mx-2 xl:block hidden" />
+        <!-- <span class="divider-vertical h-full mx-2 xl:block hidden" /> -->
         <div class="hidden xl:block shrink-0">
             <Map/>
         </div>
-        <span class="divider-vertical h-full mx-2 hidden xl:block " />
-        <div class="xl:w-2/5">
+        <!-- <span class="divider-vertical h-full mx-2 hidden xl:block " /> -->
+        <div class="xl:w-[45%] flex justify-center">
             <slot/>
         </div>
     </div>
