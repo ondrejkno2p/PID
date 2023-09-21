@@ -14,14 +14,14 @@
     <title>{$search_stop_name}</title>
 </svelte:head>
 
-<div class="flex justify-center w-full h-full pt-1">
-    <div class="relative lg:justify-between justify-center flex h-full w-full px-1 xl:px-2 ">
-        <div class="lg:flex w-fit px-1 hidden justify-start flex-shrink-0 flex-grow basis-1 justify-self-start min-w-fit">
+<div class="flex justify-center w-full h-full">
+    <div class="relative lg:justify-between justify-center flex h-full w-full ">
+        <div class="lg:flex w-fit pr-1 hidden justify-start flex-shrink-0 flex-grow basis-1 justify-self-start min-w-fit">
             <div class="lg:block hidden shrink-0 min-w-fit">
                 <Stops/>
             </div>
         </div>
-        <div class="flex justify-center sm:min-w-fit">
+        <div class="flex justify-center sm:min-w-fit px-1">
             <slot/>
         </div>
         <!-- <span class="divider-vertical h-full mx-2 xl:block hidden" /> -->

@@ -38,7 +38,7 @@
         clearInterval(interval);
     })
 </script>
-<div class="card h-max shrink-0 sm:w-fit w-full ">
+<div class="card h-max shrink-0 sm:w-fit w-full rounded-none rounded-bl-container-token rounded-br-container-token ">
     <div class="table-container ">
         <div class="flex justify-between text-xl p-2">
                 {name}
@@ -48,9 +48,9 @@
             <thead class=" ">
                 <tr>
                     <th class="sm:w-8 w-8" scope="col">P</th>
-                    <th class="sm:w-20" scope="col">Linka</th>
-                    <th class="sm:w-52 w-2/5" scope="col">Směr</th>
-                    <th class="sm:w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="sm:w-20 w-20" scope="col">Linka</th>
+                    <th class="sm:w-52 overflow-ellipsis overflow-hidden" scope="col">Směr</th>
+                    <th class="sm:w-24 w-24" scope="col">{checked?"Příjezd":"Odjezd"}</th>
                     <th class="sm:w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
                     <th class="sm:w-16 hidden sm:table-cell" scope="col">Za</th>
                 </tr>

@@ -30,7 +30,8 @@
 					$hover_stop=''
 					drawerStore.open({
 						id:"stops",
-						position:"bottom"
+						position:"left",
+						rounded:"!rounded-none"
 					})}}>
 					<Fa icon={faBars}/>
 				</button>

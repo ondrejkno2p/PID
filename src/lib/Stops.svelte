@@ -3,17 +3,15 @@
     import { found_stops, hover_stop } from "$lib/stores";
     import { onMount } from "svelte";
 	import { page } from "$app/stores";
-    // let mounted=false;
-    // onMount(()=>{
-    //     mounted=true;
-    // })
+    import { getDrawerStore } from "@skeletonlabs/skeleton";
+	const drawerStore = getDrawerStore();
     $hover_stop=''
     onMount(()=>{
         $hover_stop=''
     })
 </script>
-<div class="card max-w-sm w-full overflow-hidden">
-        <a class={"block px-4 py-1 w-full hover:bg-surface-300-600-token" + (!$page.params.stop_id?" !bg-primary-500 text-base-token":"")}  href={"/station/"+$found_stops[0].name}>
+<div class="card max-w-sm w-full overflow-hidden max-h-screen overflow-y-auto !rounded-none !rounded-br-container-token">
+        <a class={"block px-4 py-1 w-full hover:bg-surface-300-600-token" + (!$page.params.stop_id?" !bg-primary-500 text-base-token":"")}  href={"/station/"+$found_stops[0].name} on:click={()=>{$hover_stop='';drawerStore.close()}}>
             {$found_stops[0].name}
         </a>
     <hr>
