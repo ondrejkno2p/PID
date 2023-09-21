@@ -44,7 +44,7 @@
                 {name}
             <SlideToggle name="checked" bind:checked={checked} />
         </div>
-        <table class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden">
+        <table class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token">
             <thead class=" ">
                 <tr>
                     <th class="sm:w-8 w-8" scope="col">P</th>
