@@ -1,3 +1,4 @@
-<div class="xl:w-2/5">
-
-</div>
+<script lang="ts">
+    import {page} from '$app/stores'
+</script>
+{$page.error?.message}

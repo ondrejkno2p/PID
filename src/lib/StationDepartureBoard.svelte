@@ -44,15 +44,15 @@
                 {name}
             <SlideToggle name="checked" bind:checked={checked} />
         </div>
-        <table class="table sm:table-fixed table-auto max-w-full sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden">
+        <table class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden">
             <thead class=" ">
                 <tr>
-                    <th class="w-8" scope="col">P</th>
-                    <th class="w-20" scope="col">Linka</th>
-                    <th class="w-52" scope="col">Směr</th>
-                    <th class="w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
-                    <th class="w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
-                    <th class="w-16 hidden sm:table-cell" scope="col">Za</th>
+                    <th class="sm:w-8 w-8" scope="col">P</th>
+                    <th class="sm:w-20" scope="col">Linka</th>
+                    <th class="sm:w-52 w-2/5" scope="col">Směr</th>
+                    <th class="sm:w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="sm:w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
+                    <th class="sm:w-16 hidden sm:table-cell" scope="col">Za</th>
                 </tr>
             </thead>
             <tbody class="overflow-y-scroll">

@@ -22,8 +22,10 @@
 <tr>
     <td>{departure.name}</td>
     <!-- <td><a href="/trip/{departure.trip_id}">{departure.name}</a></td> -->
-    <td class="">
+    <td>
+        <div class="block overflow-ellipsis overflow-hidden">
             {departure.headsign}
+        </div>
     </td>
     <td>{hh_mm(departure.scheduled)}</td>
     <td class="hidden sm:table-cell text-on-error-token" style="color:red;">{delay_string(departure.delay)}</td>

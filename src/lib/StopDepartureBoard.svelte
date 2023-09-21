@@ -5,8 +5,8 @@
     import { SlideToggle } from '@skeletonlabs/skeleton';
     let checked:boolean=false;
     export let stop:stop;
-    export let departures:Array<departure>;
-    export let arrivals:Array<departure>;
+    export let departures:Array<departure>=[];
+    export let arrivals:Array<departure>=[];
     export let stop_id:string;
     $search_stop_name=stop.name
 
@@ -46,23 +46,23 @@
                 {stop.name} {#if stop.platform} ({stop.platform}) {/if}
             <SlideToggle name="checked" bind:checked={checked} />
         </div>
-        <table class="table sm:table-fixed table-auto max-w-full sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden">
+        <table class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden">
             <thead class=" ">
                 <tr>
-                    <th class="w-20" scope="col">Linka</th>
-                    <th class="w-52" scope="col">Směr</th>
-                    <th class="w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
-                    <th class="w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
-                    <th class="w-16 hidden sm:table-cell" scope="col">Za</th>
+                    <th class="sm:w-20" scope="col">Linka</th>
+                    <th class="sm:w-52 w-1/2" scope="col">Směr</th>
+                    <th class="sm:w-28" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="sm:w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
+                    <th class="sm:w-16 hidden sm:table-cell" scope="col">Za</th>
                 </tr>
             </thead>
             <tbody class="overflow-y-scroll">
-            {#if checked}
-                {#each arrivals?arrivals:[] as arrival (arrival.trip_id)}
+            {#if checked && arrivals}
+                {#each arrivals as arrival}
                     <Departure departure={arrival}/>
                 {/each}
-            {:else}
-                {#each departures?departures:[] as departure (departure.trip_id)}
+            {:else if departures}
+                {#each departures as departure}
                     <Departure departure={departure}/>
                 {/each}
             {/if}

@@ -24,7 +24,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="hidden lg:block text-3xl uppercase">PID</strong>
+				<strong class="hidden lg:block text-3xl uppercase"><a href="/">PID</a></strong>
 				<button class="lg:hidden btn-icon variant-filled-primary"
 				on:click={()=>{
 					$hover_stop=''
@@ -53,10 +53,11 @@
 				</div>
 			</svelte:fragment>
 		</AppBar>
+		<hr>
+
 	</svelte:fragment>
 	<svelte:fragment slot="pageHeader">
 	</svelte:fragment>
-	<hr>
 	<slot />
 	<svelte:fragment slot="footer">
 		<div class="flex justify-between p-2">
