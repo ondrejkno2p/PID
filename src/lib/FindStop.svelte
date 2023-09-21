@@ -45,8 +45,8 @@
 
 </script>
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<div use:clickOutside={()=>{suggestions=[];}} class="max-w-[14rem] lg:max-w-xs relative">
-    <div class="flex">
+<div use:clickOutside={()=>{suggestions=[];}} class="max-w-full lg:max-w-xs relative">
+    <div class="flex input-group">
         <input type="search" placeholder="Najdi Zastávku..." bind:value={stop_name} class="w-full p-2 rounded-bl-full rounded-tl-full"
         on:input={
                 ()=>{

@@ -24,7 +24,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="hidden xl:block text-3xl uppercase">PID</strong>
+				<strong class="hidden lg:block text-3xl uppercase">PID</strong>
 				<button class="lg:hidden btn-icon variant-filled-primary"
 				on:click={()=>{
 					$hover_stop=''
@@ -34,7 +34,7 @@
 					})}}>
 					<Fa icon={faBars}/>
 				</button>
-				<button class="xl:hidden btn-icon variant-filled-primary"
+				<!-- <button class="xl:hidden btn-icon variant-filled-primary"
 				on:click={()=>{
 					$hover_stop=''
 					drawerStore.open({
@@ -42,7 +42,7 @@
 						position:"right"
 					})}}>
 					<Fa icon={faMapLocationDot}/>
-				</button>
+				</button> -->
 			</svelte:fragment>
 			<div class="self-center justify-center flex">
 				<FindStop/>
@@ -77,8 +77,8 @@
 	>
 		{#if $drawerStore.id === 'stops'}
 			<Stops/>
-		{:else if $drawerStore.id === 'map'}
-			<Map/>
+		<!-- {:else if $drawerStore.id === 'map'}
+			<Map/> -->
 		{/if}
 	</Drawer>
 </AppShell>
