@@ -8,8 +8,9 @@
     let results = Promise.resolve<stop[]>([]);
     let search_suggestions = Promise.resolve<string[]>([]);
     import Fa from 'svelte-fa/src/fa.svelte'
-    import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+    import {faMagnifyingGlass, faSpinner} from '@fortawesome/free-solid-svg-icons';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
+	import { navigating } from '$app/stores';
     async function find_stop() {
         search_suggestions=Promise.resolve<string[]>([]);
         const url = "/api/find_stop?stop_name=" + encodeURI(stop_name);
@@ -45,8 +46,8 @@
 
 </script>
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<div use:clickOutside={()=>{suggestions=[];}} class="max-w-full lg:max-w-xs relative">
-    <div class="flex input-group">
+<div use:clickOutside={()=>{suggestions=[];}} class="max-w-full lg:max-w-sm relative">
+    <div class="flex input-group w-full">
         <input type="search" placeholder="Najdi Zastávku..." bind:value={stop_name} class="w-full p-2 rounded-bl-full rounded-tl-full"
         on:input={
                 ()=>{
@@ -54,19 +55,27 @@
                 }
             }
         />
-        <button
-            on:click={() => {
-                results = find_stop();
-                results.then(gotoStation)
-            }}
+        {#if !$navigating}
+            <button
+                on:click={() => {
+                    results = find_stop();
+                    results.then(gotoStation)
+                }}
+                class="btn variant-filled-primary rounded-tl-none rounded-bl-none min-w-fit"
+                >
+                <Fa  icon={faMagnifyingGlass}/>
+            </button>
+        {:else}
+            <button
+            disabled={true}
             class="btn variant-filled-primary rounded-tl-none rounded-bl-none min-w-fit"
-        >
-        <Fa icon={faMagnifyingGlass}>
-        </Fa>
-        </button>
+            >
+            <Fa spin={true} icon={faSpinner}/>
+            </button>
+        {/if}
     </div>
     {#if suggestions.length!=0}
-    <div class="absolute z-10 card w-full max-w-sm max-h-48 p-0 overflow-y-auto">
+    <div class="absolute z-10 card w-full min-w-sm max-h-48 p-0 overflow-y-scroll overflow-x-hidden">
             <Autocomplete
                 transitions={false}
                 on:selection={(event)=>{
@@ -75,7 +84,6 @@
                     suggestions = [];
                     results.then(gotoStation);
                 }}
-                bind:input={stop_name}
                 options={suggestions.flatMap((value)=>{
                     return {
                         value:value,
