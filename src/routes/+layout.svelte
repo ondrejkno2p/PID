@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 	import FindStop from "$lib/FindStop.svelte";
-	import {faBars, faMapLocationDot} from '@fortawesome/free-solid-svg-icons'
+	import {faBars, faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 	import Map from "$lib/Map.svelte";
 	import Stops from "$lib/Stops.svelte";
 	import { found_stops, hover_stop, search_stop_name } from "$lib/stores";
@@ -15,28 +15,56 @@
 	import { initializeStores } from '@skeletonlabs/skeleton';
 	initializeStores();
 	import { getDrawerStore } from "@skeletonlabs/skeleton";
-	import Fa from 'svelte-fa/src/fa.svelte';
 	const drawerStore = getDrawerStore();
+	import {page} from '$app/stores'
+	import { afterNavigate, beforeNavigate, goto, onNavigate } from '$app/navigation';
+	import {last_page} from '$lib/stores'
+	$last_page = null;
+	import Fa from 'svelte-fa/src/fa.svelte'
+
+	beforeNavigate((navigation)=>{
+		$last_page = navigation.from?.url.href?navigation.from?.url.href:null
+	})
+
+	afterNavigate((params: any) => {
+		if(!$page.url.hash){
+			const isNewPage: boolean = params.from && params.to && params.from.route.id !== params.to.route.id;
+			const elemPage = document.querySelector('#page');
+			if (isNewPage && elemPage !== null) {
+				elemPage.scrollTop = 0;
+			}
+		}
+});
+
 </script>
 
 <AppShell >
 	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar>
+		<AppBar gridColumns="grid-cols-[60px_auto_0px] sm:grid-cols-[60px_auto_60px]">
 			<svelte:fragment slot="lead">
-				<strong class="hidden lg:block text-3xl uppercase"><a href="/">PID</a></strong>
-				<button class="lg:hidden btn-icon variant-filled-primary"
-				on:click={()=>{
-					$hover_stop=''
-					drawerStore.open({
-						id:"stops",
-						position:"left",
-						rounded:"!rounded-none"
-					})}}>
-					<Fa icon={faBars}/>
-				</button>
+				<!-- <strong class="hidden lg:block text-3xl uppercase"><a href="/">PID</a></strong> -->
+				{#if ($page.route.id=="/station/[stop_name]" || $page.route.id=="/station/[stop_name]/[stop_id]") && $page.params.stop_name}
+					<button class="lg:hidden btn-icon variant-filled-primary"
+					on:click={()=>{
+						$hover_stop=''
+						drawerStore.open({
+							id:"stops",
+							position:"left",
+							rounded:"!rounded-none"
+						})}}>
+						<Fa icon={faBars}/>
+					</button>
+				{:else if ($last_page && $page.route.id=="/trip/[trip_id]" && $page.params.trip_id) || ($page.url.searchParams.get('stop_name'))}
+					<a href="{$last_page}" data-sveltekit-preload-data>
+						<button class="btn-icon variant-filled-primary">
+							<Fa icon={faArrowLeft}/>
+						</button>
+					</a>
+				{:else}
+					<strong class="text-3xl uppercase"><a href="/">PID</a></strong>
+				{/if}
 			</svelte:fragment>
-			<div class="self-center justify-center flex">
+			<div class="self-center justify-center flex h-[43px]">
 				<FindStop/>
 			</div>
 			<svelte:fragment slot="trail">
@@ -50,7 +78,6 @@
 	</svelte:fragment>
 	<svelte:fragment slot="pageHeader">
 	</svelte:fragment>
-
 	<slot />
 	<svelte:fragment slot="footer">
 		<div class="flex justify-between p-2">

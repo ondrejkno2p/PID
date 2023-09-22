@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-
-
     export let trip:trip;
     export let stop_id:string|null;
     $: name=trip.name;
@@ -27,14 +24,11 @@
     </div>
     <div class="table-container rounded-none rounded-br-container-token rounded-bl-container-token ">
 
-    <table class="table table-hover table-compact min-w-full">
+    <table class="table table-hover table-compact min-w-full rounded-none rounded-br-container-token rounded-bl-container-token ">
         <thead>
             <th class="text-left">
                 Zastávka
             </th>
-            <!-- <th class="">
-                Příjezd
-            </th> -->
             <th class="text-left">
                 Odjezd
             </th>
@@ -47,13 +41,8 @@
                         {stop_time.stop_name} {#if stop_time.platform} ({stop_time.platform}) {/if}
                     </a>
                 </td>
-                <!-- <td>
-                    {#if stop_time.departure!=stop_time.arrival}
-                    {stop_time.arrival}
-                    {/if}
-                </td> -->
                 <td>
-                    {stop_time.departure}
+                    {hh_mm(stop_time.departure)}
                 </td>
             </tr>
         {/each}

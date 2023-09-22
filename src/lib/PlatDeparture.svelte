@@ -40,7 +40,7 @@
     <!-- <td>
         {departure.name}
     </td> -->
-    <td><a href="/trip/{departure.trip_id}?stop_id={departure.stop_id}#{departure.stop_id}">{departure.name}</a></td>
+    <td><a href="/trip/{departure.trip_id}?stop_name={$page.params.stop_name}&stop_id={departure.stop_id}#{departure.stop_id}">{departure.name}</a></td>
     <td class="">
         <div class="block overflow-ellipsis overflow-hidden"    >
             {departure.headsign}

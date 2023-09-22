@@ -1,4 +1,5 @@
 import { options, url_trip } from "$lib/server/golem";
+import { error } from "@sveltejs/kit";
 import type { LayoutServerLoad } from "./$types";
 
 
@@ -16,7 +17,7 @@ export const load = (async ({params,fetch}) => {
     ])
 
     if(!stops_res.ok){
-        return {stops:[], stop_name:stop_name, departures:[], arrivals:[]}
+        throw error(404);
     }
 
     const [stops,departures,arrivals]= await Promise.all([
