@@ -27,20 +27,20 @@
     }
 </script>
 
-<tr class="!p-0 break-before-all break-words word " on:mouseover={hover} on:mouseout={blur} on:blur={blur} on:focus={hover}>
+<tr class="!p-0 ">
     {#if $hover_stop==departure.stop_id}
-        <td class="!p-0 bg-surface-300-600-token">
+        <td  on:mouseover={hover} on:mouseleave={blur} on:blur={blur} on:focus={hover} class="!p-0 bg-surface-300-600-token">
             <a class="block px-3" href={$page.url+"/"+departure.stop_id}>{departure.platform}</a>
         </td>
     {:else}
-        <td class="!p-0">
+        <td  on:mouseover={hover} on:mouseout={blur} on:blur={blur} on:focus={hover} class="!p-0">
             <a class="block px-3" href={$page.url+"/"+departure.stop_id}>{departure.platform}</a>
         </td> 
     {/if}
-    <td>
+    <!-- <td>
         {departure.name}
-    </td>
-    <!-- <td><a href="/trip/{departure.trip_id}">{departure.name}</a></td> -->
+    </td> -->
+    <td><a href="/trip/{departure.trip_id}?stop_id={departure.stop_id}#{departure.stop_id}">{departure.name}</a></td>
     <td class="">
         <div class="block overflow-ellipsis overflow-hidden"    >
             {departure.headsign}

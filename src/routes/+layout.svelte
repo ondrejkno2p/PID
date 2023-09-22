@@ -19,7 +19,7 @@
 	const drawerStore = getDrawerStore();
 </script>
 
-<AppShell>
+<AppShell >
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar>
@@ -35,15 +35,6 @@
 					})}}>
 					<Fa icon={faBars}/>
 				</button>
-				<!-- <button class="xl:hidden btn-icon variant-filled-primary"
-				on:click={()=>{
-					$hover_stop=''
-					drawerStore.open({
-						id:"map",
-						position:"right"
-					})}}>
-					<Fa icon={faMapLocationDot}/>
-				</button> -->
 			</svelte:fragment>
 			<div class="self-center justify-center flex">
 				<FindStop/>
@@ -59,6 +50,7 @@
 	</svelte:fragment>
 	<svelte:fragment slot="pageHeader">
 	</svelte:fragment>
+
 	<slot />
 	<svelte:fragment slot="footer">
 		<div class="flex justify-between p-2">
@@ -79,8 +71,6 @@
 	>
 		{#if $drawerStore.id === 'stops'}
 			<Stops/>
-		<!-- {:else if $drawerStore.id === 'map'}
-			<Map/> -->
 		{/if}
 	</Drawer>
 </AppShell>

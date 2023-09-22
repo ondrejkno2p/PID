@@ -17,11 +17,11 @@
         const string = arr[0]+':'+arr[1];
         return string;
     };
+    import {navigating} from '$app/stores'
 </script>
 
 <tr>
-    <td>{departure.name}</td>
-    <!-- <td><a href="/trip/{departure.trip_id}">{departure.name}</a></td> -->
+    <td><a href="/trip/{departure.trip_id}?stop_id={departure.stop_id}#{departure.stop_id}">{departure.name}</a></td>
     <td>
         <div class="block overflow-ellipsis overflow-hidden">
             {departure.headsign}
