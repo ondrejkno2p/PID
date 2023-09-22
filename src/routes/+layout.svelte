@@ -22,7 +22,7 @@
 	$last_page = null;
 	import Fa from 'svelte-fa/src/fa.svelte'
 
-	beforeNavigate((navigation)=>{
+	afterNavigate((navigation)=>{
 		$last_page = navigation.from?.url.href?navigation.from?.url.href:null
 	})
 
