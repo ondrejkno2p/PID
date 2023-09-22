@@ -5,6 +5,7 @@ Interaktivní aplikace na zobrazování odjezdů a příjezdů Pražské Integro
 # Data
 
 Data jsou poskytnuta projektem Golemio, viz. https://api.golemio.cz/v2/pid/docs/openapi
+
 Pro sebehostování je třeba mít .env následující typu
 
 GOLEM_API_KEY='api_key'
