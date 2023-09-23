@@ -80,6 +80,7 @@
 	</svelte:fragment>
 	<slot />
 	<svelte:fragment slot="footer">
+		<hr>
 		<div class="flex justify-between p-2">
 			<h2>Data poskytnuta Golem.io</h2>
 			<div class="sm:hidden">

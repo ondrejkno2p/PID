@@ -3,11 +3,10 @@
     import {search_stop_name, hover_stop} from '$lib/stores'
     import PlatDeparture from "./PlatDeparture.svelte";
     import { SlideToggle } from '@skeletonlabs/skeleton';
-    let checked:boolean=false;
     export let departures:Array<departure>;
     export let arrivals:Array<departure>;
     export let name:string;
-
+    import { mode_arrival } from "$lib/stores";
     let new_departures  : Promise<Array<departure>>;
     async function fetchDepartures() {
         const [departures_res,arrivals_res ]  = await Promise.all([
@@ -42,7 +41,7 @@
     <div class="table-container ">
         <div class="flex justify-between text-xl p-2">
                 {name}
-            <SlideToggle name="checked" bind:checked={checked} />
+            <SlideToggle name="checked" bind:checked={$mode_arrival} />
         </div>
         <table class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token">
             <thead class=" ">
@@ -50,18 +49,18 @@
                     <th class="sm:w-8 w-8" scope="col">P</th>
                     <th class="sm:w-20 w-20" scope="col">Linka</th>
                     <th class="sm:w-52 overflow-ellipsis overflow-hidden" scope="col">Směr</th>
-                    <th class="sm:w-24 w-24" scope="col">{checked?"Příjezd":"Odjezd"}</th>
+                    <th class="sm:w-24 w-24" scope="col">{$mode_arrival?"Příjezd":"Odjezd"}</th>
                     <th class="sm:w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
                     <th class="sm:w-16 hidden sm:table-cell" scope="col">Za</th>
                 </tr>
             </thead>
             <tbody class="overflow-y-scroll">
-            {#if checked}
-                {#each arrivals?arrivals:[] as arrival ([arrival.trip_id,arrival.stop_id])}
+            {#if $mode_arrival && arrivals}
+                {#each arrivals as arrival}
                     <PlatDeparture departure={arrival}/>
                 {/each}
-            {:else}
-                {#each departures?departures:[] as departure ([departure.trip_id, departure.stop_id])}
+            {:else if departures}
+                {#each departures as departure}
                     <PlatDeparture departure={departure}/>
                 {/each}
             {/if}
