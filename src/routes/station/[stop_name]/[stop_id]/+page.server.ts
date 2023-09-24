@@ -1,5 +1,5 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 
 
 export const load = (async ({params,fetch}) => {
@@ -21,4 +21,4 @@ export const load = (async ({params,fetch}) => {
         departures: departures,
         arrivals: arrivals,
     }
-}) satisfies PageLoad;
+}) satisfies PageServerLoad;

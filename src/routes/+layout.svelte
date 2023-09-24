@@ -20,7 +20,7 @@
 	import { afterNavigate, beforeNavigate, goto, onNavigate } from '$app/navigation';
 	import {last_page} from '$lib/stores'
 	$last_page = null;
-	import Fa from 'svelte-fa/src/fa.svelte'
+	import {Fa} from 'svelte-fa/src'
 
 	afterNavigate((navigation)=>{
 		$last_page = navigation?.from?.url?.href?navigation.from.url.href:null

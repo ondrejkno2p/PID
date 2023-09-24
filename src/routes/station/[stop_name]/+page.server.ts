@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import type { PageLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 
 export const load = (async ({params,fetch, setHeaders}) => {
     const stop_name=params.stop_name;
@@ -17,4 +17,4 @@ export const load = (async ({params,fetch, setHeaders}) => {
     ]);
 
     return {departures:departures, arrivals:arrivals}
-}) satisfies PageLoad;
+}) satisfies PageServerLoad;

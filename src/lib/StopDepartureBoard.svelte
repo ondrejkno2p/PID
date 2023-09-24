@@ -12,7 +12,7 @@
     $search_stop_name=stop.name
 
     let new_departures  : Promise<departure[]>;
-        async function fetchDepartures() {
+    async function fetchDepartures() {
         const [departures_res,arrivals_res ]  = await Promise.all([
             fetch("/api/departures/"+stop_id),
             fetch("/api/arrivals/"+stop_id),
