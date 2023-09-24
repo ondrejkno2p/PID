@@ -1,13 +1,17 @@
 import { options, url_departure_board, url_stops } from "$lib/server/golem";
-import type { RequestHandler } from "@sveltejs/kit";
+import { json, type RequestHandler } from "@sveltejs/kit";
+import { redis_client } from "$lib/server/redis";
 
-
-export const GET:RequestHandler=(async ({url}) => {
+export const GET:RequestHandler=(async ({url, setHeaders}) => {
     const stop_name = url.searchParams.get('stop_name') as string;
     if(stop_name=='' || stop_name == null){
         return new Response(JSON.stringify({}),{status:400});
     }
     try {
+        const cache = await redis_client.get("stops/"+stop_name);
+        if(cache){
+            return json(JSON.parse(cache));
+        }
         const golem_params    = {
             names: stop_name as string,
         };
@@ -34,6 +38,8 @@ export const GET:RequestHandler=(async ({url}) => {
                 }];
             }
         });
+        setHeaders({"cache-control":"max-age=86400"})
+        await redis_client.set("stops/"+stop_name,JSON.stringify(stops), "EX", 86400);
         return new Response(JSON.stringify(stops),{status:200});
     } catch (error) {
         return new Response(JSON.stringify({}),{status:500});

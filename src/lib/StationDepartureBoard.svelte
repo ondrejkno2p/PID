@@ -3,11 +3,11 @@
     import {search_stop_name, hover_stop} from '$lib/stores'
     import PlatDeparture from "./PlatDeparture.svelte";
     import { SlideToggle } from '@skeletonlabs/skeleton';
-    export let departures:Array<departure>;
-    export let arrivals:Array<departure>;
+    export let departures:departure[]=[];
+    export let arrivals:departure[]=[];
     export let name:string;
     import { mode_arrival } from "$lib/stores";
-    let new_departures  : Promise<Array<departure>>;
+    let new_departures  : Promise<departure[]>;
     async function fetchDepartures() {
         const [departures_res,arrivals_res ]  = await Promise.all([
             fetch("/api/station/departures?name="+encodeURI(name)),
@@ -31,7 +31,7 @@
     onMount(()=>{
         interval=setInterval(()=>{
             new_departures=fetchDepartures().then((value)=>{departures=value.departures,arrivals=value.arrivals;return value;},(reason)=>{return reason})
-        },10000);
+        },30000);
     });
     onDestroy(()=>{
         clearInterval(interval);

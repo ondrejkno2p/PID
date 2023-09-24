@@ -22,7 +22,8 @@ const cz_to_en =(str_cz:string) => {
 }
 
 
-export const GET:RequestHandler=(async ({url}) => {
+export const GET:RequestHandler=(async ({url, setHeaders}) => {
+    setHeaders({"cache-control":"max-age=24*60*60"})
     let search_name = url.searchParams.get('search_name') as string;
     let result_names:Array<string>=[];
     const search_name_red = cz_to_en(search_name).replace(/[\s,.-]/g, '').toLowerCase();

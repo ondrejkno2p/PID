@@ -2,7 +2,7 @@ import { options, url_departure_board } from "$lib/server/golem";
 import type { RequestHandler } from "@sveltejs/kit";
 
 
-export const GET:RequestHandler=(async ({params}) => {
+export const GET:RequestHandler=(async ({params,setHeaders}) => {
     try {
         const golem_params    = {
             ids: params.stop_id as string,
@@ -13,6 +13,10 @@ export const GET:RequestHandler=(async ({params}) => {
         const golem_res = await fetch(url,options);
         if(!golem_res.ok){
             return new Response(JSON.stringify({}),{status:golem_res.status});
+        }
+        const cache_control = golem_res.headers.get("cache-control")
+        if(cache_control){
+            setHeaders({"cache-control":cache_control});
         }
         const golem_body = await golem_res.json();
         const golem_departures=golem_body.departures;

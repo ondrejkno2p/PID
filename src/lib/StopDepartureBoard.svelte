@@ -6,12 +6,12 @@
     import { mode_arrival } from "$lib/stores";
     let checked:boolean=false;
     export let stop:stop;
-    export let departures:Array<departure>=[];
-    export let arrivals:Array<departure>=[];
+    export let departures:departure[]=[];
+    export let arrivals:departure[]=[];
     export let stop_id:string;
     $search_stop_name=stop.name
 
-    let new_departures  : Promise<Array<departure>>;
+    let new_departures  : Promise<departure[]>;
         async function fetchDepartures() {
         const [departures_res,arrivals_res ]  = await Promise.all([
             fetch("/api/departures/"+stop_id),
@@ -35,7 +35,7 @@
     onMount(()=>{
         interval=setInterval(()=>{
             new_departures=fetchDepartures().then((value)=>{departures=value.departures; arrivals=value.arrivals;return value;},(reason)=>{return reason})
-        },10000);
+        },30000);
     });
     onDestroy(()=>{
         clearInterval(interval);

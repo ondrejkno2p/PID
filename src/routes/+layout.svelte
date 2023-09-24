@@ -23,7 +23,7 @@
 	import Fa from 'svelte-fa/src/fa.svelte'
 
 	afterNavigate((navigation)=>{
-		$last_page = navigation.from?.url.href?navigation.from?.url.href:null
+		$last_page = navigation?.from?.url?.href?navigation.from.url.href:null
 	})
 
 	afterNavigate((params: any) => {
