@@ -8,9 +8,12 @@ export const GET:RequestHandler=(async ({url, setHeaders}) => {
         return new Response(JSON.stringify({}),{status:400});
     }
     try {
-        const cache = await redis_client.get("stops/"+stop_name);
+        const [cache,ttl] = await Promise.all([
+            redis_client.get("stops/"+stop_name),
+            redis_client.ttl("stops/"+stop_name)
+        ])
         if(cache){
-            setHeaders({"cache-control":"max-age=86400"})
+            setHeaders({"cache-control":"max-age="+ttl})
             return json(JSON.parse(cache));
         }
         const golem_params    = {
