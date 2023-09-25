@@ -2,7 +2,7 @@ import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 
-export const load = (async ({params,fetch}) => {
+export const load = (async ({params,fetch, setHeaders}) => {
     const stop_id=params.stop_id;
     const stop_name=params.stop_name;
     const [departures_res,arrivals_res] = await Promise.all([
@@ -15,6 +15,7 @@ export const load = (async ({params,fetch}) => {
         arrivals_res.json() as Promise<departure[]>,
 
     ])
+    setHeaders({"cache-control":"max-age=15"})
     return {
         stop_id:stop_id,
         stop_name:stop_name,

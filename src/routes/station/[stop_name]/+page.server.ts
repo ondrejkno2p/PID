@@ -10,6 +10,7 @@ export const load = (async ({params,fetch, setHeaders}) => {
         fetch("/api/station/departures?name="+encodeURI(stop_name)),
         fetch("/api/station/departures?name="+encodeURI(stop_name)+"&mode="+encodeURI("arrivals"))
     ])
+    setHeaders({"cache-control":"max-age=15"})
 
     const [departures,arrivals]= await Promise.all([
         departures_res.json() as Promise<departure[]>,

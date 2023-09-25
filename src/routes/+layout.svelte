@@ -54,6 +54,7 @@
 						})}}>
 						<Fa icon={faBars}/>
 					</button>
+					<strong class="hidden lg:block text-3xl uppercase"><a href="/">PID</a></strong>
 				{:else if ($last_page && $page.route.id=="/trip/[trip_id]" && $page.params.trip_id) || ($page.url.searchParams.get('stop_name'))}
 					<a href="{$last_page}" data-sveltekit-preload-data>
 						<button class="btn-icon variant-filled-primary">
