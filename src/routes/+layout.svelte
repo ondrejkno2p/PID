@@ -4,7 +4,7 @@
 	import {faBars, faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 	import Map from "$lib/Map.svelte";
 	import Stops from "$lib/Stops.svelte";
-	import { found_stops, hover_stop, search_stop_name } from "$lib/stores";
+	import { found_stops, hover_stop, search_stop_name, title } from "$lib/stores";
 	import "../app.postcss";
 	import { AppBar, AppRail, AppRailAnchor, AppRailTile, AppShell, Drawer } from '@skeletonlabs/skeleton';
 	$found_stops = [];
@@ -21,7 +21,7 @@
 	import {last_page} from '$lib/stores'
 	$last_page = null;
 	import {Fa} from 'svelte-fa/src'
-
+	
 	afterNavigate((navigation)=>{
 		$last_page = navigation?.from?.url?.href?navigation.from.url.href:null
 	})
@@ -34,9 +34,13 @@
 				elemPage.scrollTop = 0;
 			}
 		}
-});
-
+	});
 </script>
+<svelte:head>
+	<title>
+		{$title}
+	</title>
+</svelte:head>
 
 <AppShell >
 	<svelte:fragment slot="header">

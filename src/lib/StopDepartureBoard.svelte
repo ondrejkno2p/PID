@@ -34,7 +34,11 @@
     let interval: string | number | NodeJS.Timeout | undefined;
     onMount(()=>{
         interval=setInterval(()=>{
-            new_departures=fetchDepartures().then((value)=>{departures=value.departures; arrivals=value.arrivals;return value;},(reason)=>{return reason})
+            new_departures=fetchDepartures().then((value)=>{
+                departures=value.departures;
+                arrivals=value.arrivals;
+                return value;
+            },(reason)=>{return reason})
         },30000);
     });
     onDestroy(()=>{
@@ -59,11 +63,11 @@
             </thead>
             <tbody class="overflow-y-scroll">
             {#if $mode_arrival && arrivals}
-                {#each arrivals as arrival}
+                {#each arrivals as arrival ([arrival.trip_id,arrival.stop_id])}
                     <Departure departure={arrival}/>
                 {/each}
             {:else if departures}
-                {#each departures as departure}
+                {#each departures as departure ([departure.trip_id,departure.stop_id])}
                     <Departure departure={departure}/>
                 {/each}
             {/if}
