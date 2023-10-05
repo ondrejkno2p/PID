@@ -11,6 +11,8 @@
                 const stop = await (await fetch('/api/nearme?lat='+pos.coords.latitude+'&lon='+pos.coords.longitude)).json()
                 waiting=false;
                 goto('/station/'+stop.name)
+            },()=>{
+                waiting=false;
             })
         }
     }
