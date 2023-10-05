@@ -72,7 +72,9 @@
 			</svelte:fragment>
 			<div class="self-center justify-center flex h-[43px]">
 				<FindStop/>
-				<NearMe/>
+				<div class='px-2'>
+					<NearMe/>
+				</div>
 			</div>
 			<svelte:fragment slot="trail">
 				<div class="hidden sm:block">
