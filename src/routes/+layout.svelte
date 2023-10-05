@@ -72,7 +72,7 @@
 			</svelte:fragment>
 			<div class="self-center justify-center flex h-[43px]">
 				<FindStop/>
-				<div class='px-2'>
+				<div class='px-2 hidden sm:block'>
 					<NearMe/>
 				</div>
 			</div>
@@ -90,10 +90,15 @@
 	<slot />
 	<svelte:fragment slot="footer">
 		<hr>
-		<div class="flex justify-between p-2">
-			<h2>Data poskytnuta Golem.io</h2>
-			<div class="sm:hidden">
-				<LightSwitch/>
+		<div class="flex justify-between p-2 items-center">
+			<div class='px-2 sm:hidden'>
+				<NearMe/>
+			</div>
+			<h2 class='items-center hidden sm:block'>Data poskytnuta Golem.io</h2>
+			<div class = 'flex justify-center items-center'>
+				<div class="sm:hidden">
+					<LightSwitch/>
+				</div>
 			</div>
 		</div>
 
