@@ -7,7 +7,7 @@
     let stop_name=$search_stop_name
     let results = Promise.resolve<stop[]>([]);
     let search_suggestions = Promise.resolve<string[]>([]);
-    import Fa from 'svelte-fa/src/fa.svelte'
+    import Fa from 'svelte-fa'
     import {faMagnifyingGlass, faSpinner} from '@fortawesome/free-solid-svg-icons';
 	import { Autocomplete } from '@skeletonlabs/skeleton';
 	import { navigating } from '$app/stores';

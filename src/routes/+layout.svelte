@@ -21,6 +21,7 @@
 	import {last_page} from '$lib/stores'
 	$last_page = null;
 	import {Fa} from 'svelte-fa/src'
+	import NearMe from '$lib/NearMe.svelte';
 	
 	afterNavigate((navigation)=>{
 		$last_page = navigation?.from?.url?.href?navigation.from.url.href:null
@@ -41,7 +42,6 @@
 		{$title}
 	</title>
 </svelte:head>
-
 <AppShell >
 	<svelte:fragment slot="header">
 		<AppBar gridColumns="grid-cols-[60px_auto_0px] sm:grid-cols-[60px_auto_60px]">
@@ -59,6 +59,7 @@
 						<Fa icon={faBars}/>
 					</button>
 					<strong class="hidden lg:block text-3xl uppercase"><a href="/">PID</a></strong>
+					
 				{:else if ($last_page && $page.route.id=="/trip/[trip_id]" && $page.params.trip_id) || ($page.url.searchParams.get('stop_name'))}
 					<a href="{$last_page}" data-sveltekit-preload-data>
 						<button class="btn-icon variant-filled-primary">
@@ -71,6 +72,7 @@
 			</svelte:fragment>
 			<div class="self-center justify-center flex h-[43px]">
 				<FindStop/>
+				<NearMe/>
 			</div>
 			<svelte:fragment slot="trail">
 				<div class="hidden sm:block">
