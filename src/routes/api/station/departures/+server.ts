@@ -9,7 +9,9 @@ export const GET = (async ({url, setHeaders, url: rurl}) => {
         mode: url.searchParams.get('mode')?url.searchParams.get('mode') as string:"departures",
         minutesAfter: "360" as string,
         limit: String(limit),
+        timeFrom:(new Date(Date.now()+1000*60*30)).toISOString()
     };
+    // console.log(golem_params.timeFrom)
 
     const new_url = url_departure_board+"?"+new URLSearchParams(golem_params).toString();
     const golem_res = await fetch(new_url,options);
