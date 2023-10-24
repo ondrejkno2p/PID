@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onDestroy, onMount } from "svelte";
-    import {search_stop_name} from '$lib/stores'
+    import {search_stop_name, settings} from '$lib/stores'
     import Departure from "$lib/Departure.svelte";
     import { SlideToggle } from '@skeletonlabs/skeleton';
     import { mode_arrival } from "$lib/stores";
@@ -14,8 +14,8 @@
     let new_departures  : Promise<departure[]>;
     async function fetchDepartures() {
         const [departures_res,arrivals_res ]  = await Promise.all([
-            fetch("/api/departures/"+stop_id),
-            fetch("/api/arrivals/"+stop_id),
+            fetch("/api/departures/"+stop_id+"?limit="+$settings.limit),
+            fetch("/api/arrivals/"+stop_id+"?limit="+$settings.limit),
         ])
         const [departures_body,arrivals_body]=await Promise.all([
             departures_res.json() as Promise<departure[]>,

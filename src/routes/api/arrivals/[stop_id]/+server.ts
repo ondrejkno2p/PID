@@ -2,12 +2,13 @@ import { options, url_departure_board } from "$lib/server/golem";
 import type { RequestHandler } from "@sveltejs/kit";
 
 
-export const GET:RequestHandler=(async ({params, setHeaders}) => {
+export const GET:RequestHandler=(async ({params, setHeaders, url:rurl}) => {
     try {
+        const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
         const golem_params    = {
             ids: params.stop_id as string,
             minutesAfter: "360" as string,
-            limit: "10" as string,
+            limit: String(limit),
             mode: "arrivals" as string
         };
         const url = url_departure_board+"?"+new URLSearchParams(golem_params).toString();

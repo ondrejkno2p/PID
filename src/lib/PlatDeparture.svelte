@@ -30,11 +30,11 @@
 <tr class="!p-0 ">
     {#if $hover_stop==departure.stop_id}
         <td  on:mouseover={hover} on:mouseleave={blur} on:blur={blur} on:focus={hover} class="!p-0 bg-surface-300-600-token">
-            <a class="block px-3" href={$page.url+"/"+departure.stop_id}>{departure.platform}</a>
+            <a class="block px-3" href={"/station/"+$page.params.stop_name+"/"+departure.stop_id}>{departure.platform}</a>
         </td>
     {:else}
         <td  on:mouseover={hover} on:mouseout={blur} on:blur={blur} on:focus={hover} class="!p-0">
-            <a class="block px-3" href={$page.url+"/"+departure.stop_id}>{departure.platform}</a>
+            <a class="block px-3" href={"/station/"+$page.params.stop_name+"/"+departure.stop_id}>{departure.platform}</a>
         </td> 
     {/if}
     <!-- <td>

@@ -2,12 +2,13 @@ import { options, url_departure_board } from "$lib/server/golem";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 
 
-export const GET = (async ({url, setHeaders}) => {
+export const GET = (async ({url, setHeaders, url: rurl}) => {
+    const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
     const golem_params    = {
         names: url.searchParams.get('name') as string,
         mode: url.searchParams.get('mode')?url.searchParams.get('mode') as string:"departures",
         minutesAfter: "360" as string,
-        limit: "10" as string,
+        limit: String(limit),
     };
 
     const new_url = url_departure_board+"?"+new URLSearchParams(golem_params).toString();
