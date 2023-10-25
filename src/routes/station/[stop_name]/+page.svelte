@@ -8,5 +8,7 @@
     $:$title=name;
     $settings.limit = data.limit
     $: $settings.limit = data.limit
+    $settings.minutesOffset = data.minutesOffset
+    $: $settings.minutesOffset = data.minutesOffset
 </script>
 <StationDepartureBoard arrivals={arrivals} departures={departures} name={name}/>

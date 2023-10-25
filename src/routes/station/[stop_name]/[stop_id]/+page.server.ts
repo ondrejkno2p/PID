@@ -6,9 +6,10 @@ export const load = (async ({params,fetch, setHeaders, url: rurl}) => {
     const stop_id=params.stop_id;
     const stop_name=params.stop_name;
     const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
+    const minutesOffset = Number(rurl.searchParams.get('minutesOffset'))?Number(rurl.searchParams.get('minutesOffset')):0
     const [departures_res,arrivals_res] = await Promise.all([
-        fetch("/api/departures/"+stop_id+"?limit="+limit),
-        fetch("/api/arrivals/"+stop_id+"?limit="+ limit),
+        fetch("/api/departures/"+stop_id+"?limit="+limit+"&minutesOffset="+minutesOffset),
+        fetch("/api/arrivals/"+stop_id+"?limit="+ limit+"&minutesOffset="+minutesOffset),
     ])
 
     const [departures,arrivals] = await Promise.all([
@@ -22,5 +23,6 @@ export const load = (async ({params,fetch, setHeaders, url: rurl}) => {
         departures: departures,
         arrivals: arrivals,
         limit: limit,
+        minutesOffset:minutesOffset,
     }
 }) satisfies PageServerLoad;

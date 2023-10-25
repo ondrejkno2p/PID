@@ -17,7 +17,7 @@
         const string = arr[0]+':'+arr[1];
         return string;
     };
-    import {hover_stop} from '$lib/stores'
+    import {hover_stop, settings} from '$lib/stores'
     import {page} from '$app/stores'
     const hover = ()=>{
        $hover_stop=departure.stop_id
@@ -30,11 +30,11 @@
 <tr class="!p-0 ">
     {#if $hover_stop==departure.stop_id}
         <td  on:mouseover={hover} on:mouseleave={blur} on:blur={blur} on:focus={hover} class="!p-0 bg-surface-300-600-token">
-            <a class="block px-3" href={"/station/"+$page.params.stop_name+"/"+departure.stop_id}>{departure.platform}</a>
+            <a class="block px-3" href={"/station/"+$page.params.stop_name+"/"+departure.stop_id+"?limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset}>{departure.platform}</a>
         </td>
     {:else}
         <td  on:mouseover={hover} on:mouseout={blur} on:blur={blur} on:focus={hover} class="!p-0">
-            <a class="block px-3" href={"/station/"+$page.params.stop_name+"/"+departure.stop_id}>{departure.platform}</a>
+            <a class="block px-3" href={"/station/"+$page.params.stop_name+"/"+departure.stop_id+"?limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset}>{departure.platform}</a>
         </td> 
     {/if}
     <!-- <td>

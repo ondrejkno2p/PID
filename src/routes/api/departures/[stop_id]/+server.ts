@@ -5,10 +5,12 @@ import type { RequestHandler } from "@sveltejs/kit";
 export const GET:RequestHandler=(async ({params,setHeaders, url:rurl}) => {
     try {
         const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
+        const minutesOffset = Number(rurl.searchParams.get('minutesOffset'))?Number(rurl.searchParams.get('minutesOffset')):0
         const golem_params    = {
             ids: params.stop_id as string,
             minutesAfter: "360" as string,
             limit: String(limit),
+            timeFrom:(new Date(Date.now()+1000*60*minutesOffset)).toISOString()
         };
         const url = url_departure_board+"?"+new URLSearchParams(golem_params).toString();
         const golem_res = await fetch(url,options);

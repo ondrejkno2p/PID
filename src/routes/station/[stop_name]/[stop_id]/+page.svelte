@@ -13,6 +13,8 @@
     $: $title=name;
     $settings.limit = data.limit
     $: $settings.limit = data.limit
+    $settings.minutesOffset = data.minutesOffset
+    $: $settings.minutesOffset = data.minutesOffset
 </script>
 {#if stop}
     <StopDepartureBoard stop_id={stop_id} stop={stop} departures={departures} arrivals={arrivals}/>

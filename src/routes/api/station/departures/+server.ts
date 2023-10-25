@@ -4,14 +4,14 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 
 export const GET = (async ({url, setHeaders, url: rurl}) => {
     const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
+    const minutesOffset = Number(rurl.searchParams.get('minutesOffset'))?Number(rurl.searchParams.get('minutesOffset')):0
     const golem_params    = {
         names: url.searchParams.get('name') as string,
         mode: url.searchParams.get('mode')?url.searchParams.get('mode') as string:"departures",
         minutesAfter: "360" as string,
         limit: String(limit),
-        timeFrom:(new Date(Date.now()+1000*60*30)).toISOString()
+        timeFrom:(new Date(Date.now()+1000*60*minutesOffset)).toISOString()
     };
-    // console.log(golem_params.timeFrom)
 
     const new_url = url_departure_board+"?"+new URLSearchParams(golem_params).toString();
     const golem_res = await fetch(new_url,options);

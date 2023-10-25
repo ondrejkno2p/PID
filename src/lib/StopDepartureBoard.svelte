@@ -14,8 +14,8 @@
     let new_departures  : Promise<departure[]>;
     async function fetchDepartures() {
         const [departures_res,arrivals_res ]  = await Promise.all([
-            fetch("/api/departures/"+stop_id+"?limit="+$settings.limit),
-            fetch("/api/arrivals/"+stop_id+"?limit="+$settings.limit),
+            fetch("/api/departures/"+stop_id+"?limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset),
+            fetch("/api/arrivals/"+stop_id+"?limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset),
         ])
         const [departures_body,arrivals_body]=await Promise.all([
             departures_res.json() as Promise<departure[]>,

@@ -11,6 +11,7 @@
     $: $found_stops=data.stops;
     $: $search_stop_name=data.stop_name as string;
     import { navigating } from "$app/stores";
+	import Settings from "$lib/Settings.svelte";
 </script>
 
 
@@ -24,6 +25,9 @@
         <div class="flex justify-center sm:min-w-fit px-1">
             <slot/>
         </div>
+        <!-- <div>
+            <Settings/>
+        </div> -->
         <!-- <span class="divider-vertical h-full mx-2 xl:block hidden" /> -->
         <!-- <div class="hidden xl:block shrink-0">
             <Map/>
