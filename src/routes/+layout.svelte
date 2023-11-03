@@ -41,6 +41,7 @@
 	<title>
 		{$title}
 	</title>
+	<meta name="description" content="odjezdové tabule, PID, praha, pražská integrovaná doprava">
 </svelte:head>
 <AppShell >
 	<svelte:fragment slot="header">

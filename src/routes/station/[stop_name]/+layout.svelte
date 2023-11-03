@@ -14,6 +14,9 @@
 	import Settings from "$lib/Settings.svelte";
 </script>
 
+<svelte:head>
+    	<meta name="description" content="{data.stop_name}">
+</svelte:head>
 
 <div class="flex justify-center w-full h-full">
     <div class="relative lg:justify-between justify-center flex h-full w-full ">
