@@ -48,7 +48,7 @@
 			<svelte:fragment slot="lead">
 				<!-- <strong class="hidden lg:block text-3xl uppercase"><a href="/">PID</a></strong> -->
 				{#if ($page.route.id=="/station/[stop_name]" || $page.route.id=="/station/[stop_name]/[stop_id]") && $page.params.stop_name}
-					<button class="lg:hidden btn-icon variant-filled-primary"
+					<button aria-label="Všechny zastávky" class="lg:hidden btn-icon variant-filled-primary"
 					on:click={()=>{
 						$hover_stop=''
 						drawerStore.open({
@@ -62,7 +62,7 @@
 					
 				{:else if ($last_page && $page.route.id=="/trip/[trip_id]" && $page.params.trip_id) || ($page.url.searchParams.get('stop_name'))}
 					<a href="{$last_page}" data-sveltekit-preload-data>
-						<button class="btn-icon variant-filled-primary">
+						<button aria-label="Zpět k odjezdům" class="btn-icon variant-filled-primary">
 							<Fa icon={faArrowLeft}/>
 						</button>
 					</a>
