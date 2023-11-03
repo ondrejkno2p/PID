@@ -45,7 +45,6 @@
 }
 
 </script>
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <div use:clickOutside={()=>{suggestions=[];}} class="max-w-full lg:max-w-sm relative">
     <div class="flex input-group w-full">
         <input type="search" placeholder="Najdi Zastávku..." bind:value={stop_name} class="w-full p-2 rounded-bl-full rounded-tl-full"
@@ -57,6 +56,7 @@
         />
         {#if !$navigating}
             <button
+                aria-label="Najít zastávku"
                 on:click={() => {
                     results = find_stop();
                     results.then(gotoStation)

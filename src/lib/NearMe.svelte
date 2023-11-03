@@ -22,7 +22,7 @@
     })
     
 </script>
-<button class='btn-icon variant-filled-primary' disabled={!mounted || !navigator.geolocation} on:click={onClick}>
+<button aria-label="Najít nejbližší zastávku" class='btn-icon variant-filled-primary' disabled={!mounted || !navigator.geolocation} on:click={onClick}>
     {#if !waiting}
         <Fa icon={faLocationDot}/>
     {:else}

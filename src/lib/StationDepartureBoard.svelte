@@ -42,7 +42,7 @@
     <div class="table-container ">
         <div class="flex justify-between text-xl p-2">
                 {name}
-            <SlideToggle name="checked" bind:checked={$mode_arrival} />
+            <SlideToggle label={$mode_arrival?"Příjezdy":"Odjezdy"}  name="checked" bind:checked={$mode_arrival} />
         </div>
         <table class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token">
             <thead class=" ">
