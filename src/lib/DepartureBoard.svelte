@@ -11,18 +11,12 @@
     import { mode_arrival } from "$lib/stores";
     let new_departures  : Promise<departure[]>;
     async function fetchDepartures() {
-        const [departures_res,arrivals_res ]  = await Promise.all([
-            fetch("/api/departures?name="+encodeURI(name)                               +"&limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset+(stop_id?"&id="+stop_id:'')),
-            fetch("/api/departures?name="+encodeURI(name)+"&mode="+encodeURI('arrivals')+"&limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset+(stop_id?"&id="+stop_id:'')),
-        ])
-        const [departures_body,arrivals_body]=await Promise.all([
-            departures_res.json() as Promise<departure[]>,
-            arrivals_res.json() as Promise<departure[]>,
-        ])
-        if(departures_res.ok && arrivals_res.ok) {
+        const response  = await fetch("/api/departures?name="+encodeURI(name)+"&mode=all"+"&limit="+$settings.limit+"&minutesOffset="+$settings.minutesOffset+(stop_id?"&id="+stop_id:''))
+        const body = await response.json() as {departures:departure[],arrivals:departure[]}
+        if(response.ok) {
             return {
-                    departures:departures_body,
-                    arrivals:arrivals_body,
+                    departures:body.departures,
+                    arrivals:body.arrivals,
                 };
         }
         else{
@@ -33,7 +27,7 @@
     onMount(()=>{
         interval=setInterval(()=>{
             new_departures=fetchDepartures().then((value)=>{departures=value.departures; arrivals=value.arrivals;return value;},(reason)=>{return reason})
-        },5000);
+        },30000);
     });
     onDestroy(()=>{
         clearInterval(interval);

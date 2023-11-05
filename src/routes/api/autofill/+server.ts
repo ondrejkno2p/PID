@@ -1,5 +1,5 @@
 import { options, url_departure_board } from "$lib/server/golem";
-import {stops} from '$lib/server/get_all_stops'
+import {stopNames} from '$lib/server/get_all_stops'
 import type { RequestHandler } from "@sveltejs/kit";
 
 const DIAKRITIKA = [
@@ -26,9 +26,8 @@ export const GET:RequestHandler=(async ({url, setHeaders}) => {
     setHeaders({"cache-control":"max-age=24*60*60"})
     let search_name = url.searchParams.get('search_name') as string;
     let result_names:Array<string>=[];
-    const stop_names=stops.flatMap((value)=>{return value.name})
     const search_name_red = cz_to_en(search_name).replace(/[\s,.-]/g, '').toLowerCase();
-    stop_names.forEach((stop_name:string) => {
+    stopNames.forEach((stop_name:string) => {
         if (cz_to_en(stop_name).replace(/[\s,.-]/g, '').toLowerCase().startsWith(search_name_red)) {
                 result_names = [...result_names, stop_name];
         }

@@ -7,21 +7,14 @@ export const load = (async ({params,fetch, setHeaders, url: rurl}) => {
     const stop_name=params.stop_name;
     const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
     const minutesOffset = Number(rurl.searchParams.get('minutesOffset'))?Number(rurl.searchParams.get('minutesOffset')):0
-    const [departures_res,arrivals_res] = await Promise.all([
-        fetch("/api/departures?id="+stop_id+"&mode="+encodeURI("departures")+"&limit="+String(limit)+"&minutesOffset="+minutesOffset),
-        fetch("/api/departures?id="+stop_id+"&mode="+encodeURI("arrivals")+"&limit="+String(limit)+"&minutesOffset="+minutesOffset)
-    ])
-
-    const [departures,arrivals] = await Promise.all([
-        departures_res.json() as Promise<departure[]>,
-        arrivals_res.json() as Promise<departure[]>,
-    ])
+    const response =  await fetch("/api/departures?id="+stop_id+"&mode=all"+"&limit="+String(limit)+"&minutesOffset="+minutesOffset)
+    const body = await response.json()
     setHeaders({"cache-control":"max-age=0"})
     return {
         stop_id:stop_id,
         stop_name:stop_name,
-        departures: departures,
-        arrivals: arrivals,
+        departures: body.departures,
+        arrivals: body.arrivals,
         limit: limit,
         minutesOffset:minutesOffset,
     }
