@@ -14,7 +14,7 @@ type departure = {
     scheduled: Date,
     minutes  : string,
     delay    : number,
-    platform : string,
+    platform : string | null,
     stop_id  : string,
 };
 

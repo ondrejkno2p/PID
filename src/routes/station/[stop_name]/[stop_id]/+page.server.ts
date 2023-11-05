@@ -8,8 +8,8 @@ export const load = (async ({params,fetch, setHeaders, url: rurl}) => {
     const limit = Number(rurl.searchParams.get('limit'))?Number(rurl.searchParams.get('limit')):10
     const minutesOffset = Number(rurl.searchParams.get('minutesOffset'))?Number(rurl.searchParams.get('minutesOffset')):0
     const [departures_res,arrivals_res] = await Promise.all([
-        fetch("/api/departures/"+stop_id+"?limit="+limit+"&minutesOffset="+minutesOffset),
-        fetch("/api/arrivals/"+stop_id+"?limit="+ limit+"&minutesOffset="+minutesOffset),
+        fetch("/api/departures?id="+stop_id+"&mode="+encodeURI("departures")+"&limit="+String(limit)+"&minutesOffset="+minutesOffset),
+        fetch("/api/departures?id="+stop_id+"&mode="+encodeURI("arrivals")+"&limit="+String(limit)+"&minutesOffset="+minutesOffset)
     ])
 
     const [departures,arrivals] = await Promise.all([

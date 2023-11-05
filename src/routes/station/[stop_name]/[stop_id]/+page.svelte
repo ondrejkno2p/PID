@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import StopDepartureBoard from "$lib/StopDepartureBoard.svelte";
+    import DepartureBoard from "$lib/DepartureBoard.svelte";
     import {title, settings} from '$lib/stores'
 
     export let data:PageData;
@@ -17,5 +17,5 @@
     $: $settings.minutesOffset = data.minutesOffset
 </script>
 {#if stop}
-    <StopDepartureBoard stop_id={stop_id} stop={stop} departures={departures} arrivals={arrivals}/>
+    <DepartureBoard name={name} stop_id={stop_id} departures={departures} arrivals={arrivals}/>
 {/if}

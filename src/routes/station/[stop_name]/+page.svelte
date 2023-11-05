@@ -1,5 +1,5 @@
 <script lang="ts">
-	import StationDepartureBoard from "$lib/StationDepartureBoard.svelte";
+	import DepartureBoard from "$lib/DepartureBoard.svelte";
     import {title, settings} from '$lib/stores'
     export let data;
     $:departures = data.departures as departure[]
@@ -11,4 +11,4 @@
     $settings.minutesOffset = data.minutesOffset
     $: $settings.minutesOffset = data.minutesOffset
 </script>
-<StationDepartureBoard arrivals={arrivals} departures={departures} name={name}/>
+<DepartureBoard arrivals={arrivals} departures={departures} name={name}/>
