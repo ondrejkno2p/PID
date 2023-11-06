@@ -29,9 +29,9 @@
     <div class="flex justify-center sm:min-w-fit px-1">
       <slot />
     </div>
-    <!-- <div>
+    <div>
             <Settings/>
-        </div> -->
+        </div>
     <!-- <span class="divider-vertical h-full mx-2 xl:block hidden" /> -->
     <!-- <div class="hidden xl:block shrink-0">
             <Map/>

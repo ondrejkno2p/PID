@@ -5,6 +5,7 @@
   import { last_page } from "$lib/stores";
   import { page } from "$app/stores";
   export let data: PageData;
+  // console.log(data.stop_id,data.stop_name,$last_page)
   if (!$last_page) {
     if (!data.stop_name) {
       $last_page = null;
@@ -13,7 +14,9 @@
     } else {
       $last_page = "/station/" + data.stop_name + "/" + data.stop_id;
     }
+    // console.log(data.stop_id,data.stop_name,$last_page)
   }
+  $last_page = "/station/" + data.stop_name + "/" + data.stop_id
 </script>
 
 <div class="flex justify-center">

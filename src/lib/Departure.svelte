@@ -24,9 +24,9 @@
 
 <tr>
   {#if departure.platform !== null}
-    <td class="!p-0">
+    <td class="">
       <a
-        class="block px-3"
+        class="block hover:bg-surface-300-600-token text-center p-3"
         href={"/station/" +
           $page.params.stop_name +
           "/" +
@@ -36,17 +36,22 @@
           "&minutesOffset=" +
           $settings.minutesOffset}
       >
-        {departure.platform}
+            {departure.platform}    
       </a>
+
     </td>
   {/if}
-  <td
-    ><a
+  <td class="">
+    <a
+      class="block hover:bg-surface-300-600-token text-center p-3"
       href="/trip/{departure.trip_id}?stop_name={$page.params
         .stop_name}&stop_id={departure.stop_id}#{departure.stop_id}"
-      >{departure.name}</a
-    ></td
-  >
+      >
+        {departure.name}
+      </a
+    >
+  </td>
+
   <td>
     <div class="block overflow-ellipsis overflow-hidden">
       {departure.headsign}

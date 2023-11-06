@@ -92,7 +92,7 @@
             <Logo />
           </div>
         {:else if ($last_page && $page.route.id == "/trip/[trip_id]" && $page.params.trip_id) || $page.url.searchParams.get("stop_name")}
-          <a href={$last_page} data-sveltekit-preload-data>
+          <a href={$last_page}>
             <button
               aria-label="Zpět k odjezdům"
               class="btn-icon variant-filled-primary"

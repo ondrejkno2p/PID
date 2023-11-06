@@ -67,9 +67,9 @@
       />
     </div>
     <table
-      class="table table-fixed max-w-[100vw] sm:max-w-2xl table-hover table-compact max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token"
+      class="table-hover table-fixed max-w-[100vw] sm:max-w-2xl max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token"
     >
-      <thead class=" ">
+      <thead class=" bg-surface-200-700-token ">
         <tr>
           {#if !stop_id}
             <th class="sm:w-8 w-8" scope="col">P</th>
@@ -81,7 +81,7 @@
           <th class="sm:w-24 w-24" scope="col"
             >{$mode_arrival ? "Příjezd" : "Odjezd"}</th
           >
-          <th class="sm:w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
+          <th class="p-4 sm:w-28 hidden sm:table-cell" scope="col">Zpoždění</th>
           <th class="sm:w-16 hidden sm:table-cell" scope="col">Za</th>
         </tr>
       </thead>
