@@ -1,5 +1,5 @@
 import { options, url_departure_board } from "$lib/server/golem";
-import { stopNames } from "$lib/server/get_all_stops";
+import stopNames from "$lib/server/stopNames.json";
 import type { RequestHandler } from "@sveltejs/kit";
 
 const DIAKRITIKA = [

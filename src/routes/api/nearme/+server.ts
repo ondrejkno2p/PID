@@ -1,6 +1,6 @@
-import { stops } from "$lib/server/get_all_stops";
 import type { RequestHandler } from "@sveltejs/kit";
 import { error, json } from "@sveltejs/kit";
+import stops from "$lib/server/stops.json"
 const praha = {
   lon: 14.411191,
   lat: 50.076528,
