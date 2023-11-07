@@ -11,9 +11,12 @@ export const load = (async ({ url, params, fetch }) => {
   const trip = await trip_res.json();
   const stop_id = url.searchParams.get("stop_id");
   const stop_name = url.searchParams.get("stop_name");
+  const stop = url.searchParams.get("stop") as "true" | "false";
+
   return {
     stop_name: stop_name,
     stop_id: stop_id,
     trip: trip as trip,
+    stop: stop,
   };
 }) satisfies PageServerLoad;

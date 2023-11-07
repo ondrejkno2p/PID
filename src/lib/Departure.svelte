@@ -45,7 +45,7 @@
     <a
       class="block hover:bg-surface-300-600-token text-center p-3"
       href="/trip/{departure.trip_id}?stop_name={$page.params
-        .stop_name}&stop_id={departure.stop_id}#{departure.stop_id}"
+        .stop_name}&stop_id={departure.stop_id}&stop={departure.platform===null}#{departure.stop_id}"
       >
         {departure.name}
       </a

@@ -36,14 +36,10 @@
     onNavigate,
   } from "$app/navigation";
   import { last_page } from "$lib/stores";
-  $last_page = null;
   import { Fa } from "svelte-fa/src";
   import NearMe from "$lib/NearMe.svelte";
   import Logo from "$lib/Logo.svelte";
-
-  afterNavigate((navigation) => {
-    $last_page = navigation?.from?.url?.href ? navigation.from.url.href : null;
-  });
+  import Back from "$lib/Back.svelte";
 
   afterNavigate((params: any) => {
     if (!$page.url.hash) {
@@ -91,15 +87,8 @@
           <div class="hidden lg:block">
             <Logo />
           </div>
-        {:else if ($last_page && $page.route.id == "/trip/[trip_id]" && $page.params.trip_id) || $page.url.searchParams.get("stop_name")}
-          <a href={$last_page}>
-            <button
-              aria-label="Zpět k odjezdům"
-              class="btn-icon variant-filled-primary"
-            >
-              <Fa icon={faArrowLeft} />
-            </button>
-          </a>
+        {:else if $last_page}
+          <Back/>
         {:else}
           <Logo />
         {/if}
