@@ -7,10 +7,15 @@
   $: stop = data.stops.find((value) => {
     return value.id == stop_id;
   });
+  let stop_id=data.stop_id
   $: stop_id = data.stop_id;
+  let departures = data.departures;
   $: departures = data.departures;
+  let arrivals = data.arrivals;
   $: arrivals = data.arrivals;
-  $: name = data.stop_name as string;
+  let name = data.stop_name;
+  $: name = data.stop_name;
+  $title = name
   $: $title = name;
   $settings.limit = data.limit;
   $: $settings.limit = data.limit;

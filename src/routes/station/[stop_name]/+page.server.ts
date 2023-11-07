@@ -15,7 +15,7 @@ export const load = (async ({ params, fetch, setHeaders, url: rurl }) => {
   const response = await fetch(
     "/api/departures?name=" +
       encodeURI(stop_name) +
-      "&mode=all" +
+      "&mode=departures" +
       "&limit=" +
       String(limit) +
       "&minutesOffset=" +

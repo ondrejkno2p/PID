@@ -101,6 +101,10 @@ export const GET = (async ({ url, setHeaders, url: rurl }) => {
     golemParams.set("mode", "arrivals");
     const arrivalsUrl =
       url_departure_board + "?" + new URLSearchParams(golemParams).toString();
+    // console.log(departuresUrl)
+    // console.log(arrivalsUrl)
+    // console.log((await fetch(departuresUrl, options)).status)
+    // console.log((await fetch(arrivalsUrl, options)).status)
     const [golemDeparturesResponse, golemArrivalsResponse] = await Promise.all([
       fetch(departuresUrl, options),
       fetch(arrivalsUrl, options),

@@ -4,8 +4,8 @@
   import Departure from "./Departure.svelte";
   import { SlideToggle } from "@skeletonlabs/skeleton";
 
-  export let departures: departure[] = [];
-  export let arrivals: departure[] = [];
+  export let departures: departure[]|null = [];
+  export let arrivals: departure[]|null = [];
   export let name: string;
   export let stop_id: string | null = null;
   import { mode_arrival } from "$lib/stores";
@@ -14,7 +14,7 @@
     const response = await fetch(
       "/api/departures?name=" +
         encodeURI(name) +
-        "&mode=all" +
+        "&mode=departures" +
         "&limit=" +
         $settings.limit +
         "&minutesOffset=" +
@@ -58,17 +58,12 @@
   class="card h-max shrink-0 sm:w-fit w-full rounded-none rounded-bl-container-token rounded-br-container-token"
 >
   <div class="table-container">
-    <div class="flex justify-between text-xl p-2">
-      {name}
-      <SlideToggle
-        label={$mode_arrival ? "Příjezdy" : "Odjezdy"}
-        name="checked"
-        bind:checked={$mode_arrival}
-      />
-    </div>
     <table
       class="table-hover table-fixed max-w-[100vw] sm:max-w-2xl max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token"
     >
+      <caption class="text-xl p-4 text-left">
+        {name}
+      </caption>
       <thead class=" bg-surface-200-700-token ">
         <tr>
           {#if !stop_id}
