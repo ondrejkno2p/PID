@@ -53,7 +53,7 @@
           return reason;
         }
       );
-    }, 5000);
+    }, 30000);
   });
   onDestroy(() => {
     clearInterval(interval);
