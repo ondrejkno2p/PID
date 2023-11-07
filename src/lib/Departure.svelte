@@ -22,7 +22,7 @@
   }
 </script>
 
-<tr>
+<tr class="even:backdrop-brightness-95">
   {#if departure.platform !== null}
     <td class="">
       <a
