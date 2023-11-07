@@ -2,13 +2,16 @@
   import { onDestroy, onMount } from "svelte";
   import { settings } from "$lib/stores";
   import Departure from "./Departure.svelte";
-  import { SlideToggle } from "@skeletonlabs/skeleton";
+  import {faSpinner} from "@fortawesome/free-solid-svg-icons"
 
   export let departures: departure[]|null = [];
   export let arrivals: departure[]|null = [];
   export let name: string;
   export let stop_id: string | null = null;
+  let loading: boolean=false;
   import { mode_arrival } from "$lib/stores";
+    import { faL } from "@fortawesome/free-solid-svg-icons";
+    import Fa from "svelte-fa";
   let new_departures: Promise<departure[]>;
   async function fetchDepartures() {
     const response = await fetch(
@@ -37,17 +40,20 @@
   let interval: string | number | NodeJS.Timeout | undefined;
   onMount(() => {
     interval = setInterval(() => {
+      loading=true;
       new_departures = fetchDepartures().then(
         (value) => {
           departures = value.departures;
           arrivals = value.arrivals;
+          loading=false;
           return value;
         },
         (reason) => {
+          loading=false;
           return reason;
         }
       );
-    }, 30000);
+    }, 5000);
   });
   onDestroy(() => {
     clearInterval(interval);
@@ -62,7 +68,12 @@
       class="table-fixed max-w-[100vw] sm:max-w-2xl max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token"
     >
       <caption class="text-xl p-4 text-left">
-        {name}
+        <div class="flex justify-between">
+          {name}
+          {#if loading}
+            <Fa icon={faSpinner} rotate={true}/>
+          {/if}
+        </div>
       </caption>
       <thead class=" bg-surface-200-700-token ">
         <tr>
