@@ -22,9 +22,9 @@
   }
 </script>
 
-<tr class="even:backdrop-brightness-95">
+<tr class="">
   {#if departure.platform !== null}
-    <td class="">
+    <td>
       <a
         class="block hover:bg-surface-300-600-token text-center p-3"
         href={"/station/" +
@@ -63,3 +63,12 @@
   >
   <td class="hidden sm:table-cell">{departure.minutes}</td>
 </tr>
+
+<style>
+  tr:nth-child(even) {
+    background-color: rgb(var(--color-surface-500) / 0.05);
+  }
+  tr:hover {
+    background-color: rgb(var(--color-surface-500) / 0.1) ;
+  }
+</style>

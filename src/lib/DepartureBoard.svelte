@@ -59,7 +59,7 @@
 >
   <div class="table-container">
     <table
-      class="table-hover table-fixed max-w-[100vw] sm:max-w-2xl max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token"
+      class="table-fixed max-w-[100vw] sm:max-w-2xl max-h-xl overflow-hidden rounded-none rounded-bl-container-token rounded-br-container-token"
     >
       <caption class="text-xl p-4 text-left">
         {name}
