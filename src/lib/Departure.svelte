@@ -36,20 +36,19 @@
           "&minutesOffset=" +
           $settings.minutesOffset}
       >
-            {departure.platform}    
+        {departure.platform}
       </a>
-
     </td>
   {/if}
   <td class="">
     <a
       class="block hover:bg-surface-300-600-token text-center p-3"
       href="/trip/{departure.trip_id}?stop_name={$page.params
-        .stop_name}&stop_id={departure.stop_id}&stop={departure.platform===null}#{departure.stop_id}"
-      >
-        {departure.name}
-      </a
+        .stop_name}&stop_id={departure.stop_id}&stop={departure.platform ===
+        null}#{departure.stop_id}"
     >
+      {departure.name}
+    </a>
   </td>
 
   <td>
@@ -69,6 +68,6 @@
     background-color: rgb(var(--color-surface-500) / 0.05);
   }
   tr:hover {
-    background-color: rgb(var(--color-surface-500) / 0.1) ;
+    background-color: rgb(var(--color-surface-500) / 0.1);
   }
 </style>

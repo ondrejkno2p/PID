@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { found_stops, hover_stop, search_stop_name } from "$lib/stores";
+  import { found_stops, search_stop_name } from "$lib/stores";
   const map_api_key = "b634dae013b649629110c39cfe7d4c6a";
   const url_static_maps = "https://maps.geoapify.com/v1/staticmap";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   const drawerStore = getDrawerStore();
-  const blur = () => {
-    $hover_stop = "";
-  };
   import { page } from "$app/stores";
   import { onMount } from "svelte";
   import { onNavigate } from "$app/navigation";
-  $hover_stop = "";
   $: center = get_center($found_stops);
   $: zoom = get_bounds(center, $found_stops);
   $: geoapify_params = {
@@ -36,9 +32,6 @@
     lon = lon / n;
     return { lat, lon };
   };
-  onMount(() => {
-    $hover_stop = "";
-  });
   const get_bounds = (
     center: { lat: number; lon: number },
     stops: Array<stop>
@@ -102,28 +95,13 @@
   <div class="relative m-0 max-w-[100vh] max-h-[100vw] xl:max-w-[600px]">
     <svg viewBox="0 0 100 100" class="absolute h-full w-full m-0">
       {#each $found_stops as stop}
-        <a
-          href={"/station/" + encodeURI(stop.name) + "/" + stop.id}
-          on:blur={blur}
-          on:mouseout={blur}
-          on:focus={() => {
-            $hover_stop = stop.id;
-          }}
-          on:mouseover={() => {
-            $hover_stop = stop.id;
-          }}
-          on:click={() => {
-            $hover_stop == "";
-            drawerStore.close();
-          }}
-        >
+        <a href={"/station/" + encodeURI(stop.name) + "/" + stop.id}>
           <circle
             class={"dark:fill-surface-500 fill-surface-400 " +
-              ($hover_stop == stop.id ? "  " : "") +
               ($page.params?.stop_id == stop.id ? "!fill-primary-500" : "")}
             cx={((stop.lon - center.lon + dx / 2) * 100) / dx}
             cy={(-(stop.lat - center.lat - dy / 2) * 100) / dy}
-            r={stop.id == $hover_stop ? 3 : 2}
+            r={2}
           />
         </a>
       {/each}

@@ -1,5 +1,5 @@
 import { options, url_stops } from "$lib/server/golem";
-import {writeFileSync} from 'fs'
+import { writeFileSync } from "fs";
 const golem_params1 = {
   limit: "10000",
 };
@@ -39,7 +39,7 @@ golem_stops.forEach((golemStop: golem_stop) => {
   }
 });
 
-writeFileSync("./src/lib/server/stops.json",JSON.stringify(stops))
+writeFileSync("./src/lib/server/stops.json", JSON.stringify(stops));
 
 export let stopNames: Array<string> = [];
 stops.forEach((stop: any) => {
@@ -48,5 +48,4 @@ stops.forEach((stop: any) => {
     stopNames = [...stopNames, name];
   }
 });
-writeFileSync("./src/lib/server/stopNames.json",JSON.stringify(stopNames))
-
+writeFileSync("./src/lib/server/stopNames.json", JSON.stringify(stopNames));

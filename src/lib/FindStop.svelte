@@ -4,7 +4,6 @@
   import { found_stops, search_stop_name } from "$lib/stores";
   import { goto } from "$app/navigation";
   let stop_name = $search_stop_name;
-  let results = Promise.resolve<stop[]>([]);
   let search_suggestions = Promise.resolve<string[]>([]);
   import Fa from "svelte-fa";
   import {
@@ -13,17 +12,6 @@
   } from "@fortawesome/free-solid-svg-icons";
   import { Autocomplete } from "@skeletonlabs/skeleton";
   import { navigating } from "$app/stores";
-  async function find_stop() {
-    search_suggestions = Promise.resolve<string[]>([]);
-    const url = "/api/find_stop?stop_name=" + encodeURI(stop_name);
-    const response = await fetch(url);
-    const body = await response.json();
-    if (response.ok) {
-      return body;
-    } else {
-      throw new Error(String(response.status));
-    }
-  }
   async function get_suggestion(stop_name: string) {
     if (stop_name.length <= 2) {
       suggestions = [];
@@ -31,22 +19,14 @@
     }
     const url = "/api/autofill?search_name=" + encodeURI(stop_name);
     const response = await fetch(url);
-    const body = await response.json();
     if (response.ok) {
+      const body = await response.json();
       return body;
     } else {
       throw new Error(String(response.status));
     }
   }
-  let mounted = false;
-  onMount(() => {
-    mounted = true;
-  });
   let suggestions: Array<string> = [];
-  const gotoStation = (value: Array<stop>) => {
-    $found_stops = value;
-    goto("/station/" + stop_name, { replaceState: true });
-  };
 </script>
 
 <div
@@ -62,31 +42,28 @@
       bind:value={stop_name}
       class="w-full p-2 rounded-bl-full rounded-tl-full"
       on:input={() => {
-        search_suggestions = get_suggestion(stop_name).then((value) => {
-          suggestions = value;
-          return value;
-        });
+        search_suggestions = get_suggestion(stop_name)
+          .then((value) => {
+            suggestions = value;
+            return value;
+          })
+          .catch(() => {});
       }}
     />
-    {#if !$navigating}
-      <button
-        aria-label="Najít zastávku"
-        on:click={() => {
-          results = find_stop();
-          results.then(gotoStation);
-        }}
-        class="btn variant-filled-primary rounded-tl-none rounded-bl-none min-w-fit"
-      >
+    <button
+      aria-label="Najít zastávku"
+      class="btn variant-filled-primary rounded-tl-none rounded-bl-none min-w-fit"
+      disabled={!!$navigating || stop_name.length == 0}
+      on:click={() => {
+        goto("/station/" + stop_name);
+      }}
+    >
+      {#if !$navigating}
         <Fa icon={faMagnifyingGlass} />
-      </button>
-    {:else}
-      <button
-        disabled={true}
-        class="btn variant-filled-primary rounded-tl-none rounded-bl-none min-w-fit"
-      >
+      {:else}
         <Fa spin={true} icon={faSpinner} />
-      </button>
-    {/if}
+      {/if}
+    </button>
   </div>
   {#if suggestions.length != 0}
     <div
@@ -95,10 +72,9 @@
       <Autocomplete
         transitions={false}
         on:selection={(event) => {
-          stop_name = event.detail.label;
-          results = find_stop();
           suggestions = [];
-          results.then(gotoStation);
+          stop_name = event.detail.label;
+          goto("/station/" + stop_name);
         }}
         options={suggestions.flatMap((value) => {
           return {

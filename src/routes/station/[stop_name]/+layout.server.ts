@@ -1,4 +1,3 @@
-import { options, url_trip } from "$lib/server/golem";
 import { error } from "@sveltejs/kit";
 import type { LayoutServerLoad } from "./$types";
 export const ssr = true;
@@ -8,15 +7,12 @@ export const load = (async ({ params, fetch, setHeaders }) => {
   if (!stop_name) {
     throw error(400);
   }
-  const [stops_res] = await Promise.all([
-    fetch("/api/find_stop" + "?stop_name=" + stop_name),
-  ]);
+  const stops_res = await fetch("/api/find_stop" + "?stop_name=" + stop_name);
 
   if (!stops_res.ok) {
     throw error(404);
   }
-
-  const [stops] = await Promise.all([stops_res.json() as Promise<stop[]>]);
+  const stops = (await stops_res.json()) as stop[];
 
   return { stops: stops, stop_name: stop_name };
 }) satisfies LayoutServerLoad;

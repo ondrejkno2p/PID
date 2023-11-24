@@ -4,12 +4,7 @@
   import { faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
   import Map from "$lib/Map.svelte";
   import Stops from "$lib/Stops.svelte";
-  import {
-    found_stops,
-    hover_stop,
-    search_stop_name,
-    title,
-  } from "$lib/stores";
+  import { found_stops, search_stop_name, title } from "$lib/stores";
   import "../app.postcss";
   import {
     AppBar,
@@ -74,7 +69,6 @@
             aria-label="Všechny zastávky"
             class="lg:hidden btn-icon variant-filled-primary"
             on:click={() => {
-              $hover_stop = "";
               drawerStore.open({
                 id: "stops",
                 position: "left",
@@ -88,7 +82,7 @@
             <Logo />
           </div>
         {:else if $last_page}
-          <Back/>
+          <Back />
         {:else}
           <Logo />
         {/if}

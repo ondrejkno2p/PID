@@ -2,16 +2,16 @@
   import { onDestroy, onMount } from "svelte";
   import { settings } from "$lib/stores";
   import Departure from "./Departure.svelte";
-  import {faSpinner} from "@fortawesome/free-solid-svg-icons"
+  import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-  export let departures: departure[]|null = [];
-  export let arrivals: departure[]|null = [];
+  export let departures: departure[] | null = [];
+  export let arrivals: departure[] | null = [];
   export let name: string;
   export let stop_id: string | null = null;
-  let loading: boolean=false;
+  let loading: boolean = false;
   import { mode_arrival } from "$lib/stores";
-    import { faL } from "@fortawesome/free-solid-svg-icons";
-    import Fa from "svelte-fa";
+  import { faL } from "@fortawesome/free-solid-svg-icons";
+  import Fa from "svelte-fa";
   let new_departures: Promise<departure[]>;
   async function fetchDepartures() {
     const response = await fetch(
@@ -40,16 +40,16 @@
   let interval: string | number | NodeJS.Timeout | undefined;
   onMount(() => {
     interval = setInterval(() => {
-      loading=true;
+      loading = true;
       new_departures = fetchDepartures().then(
         (value) => {
           departures = value.departures;
           arrivals = value.arrivals;
-          loading=false;
+          loading = false;
           return value;
         },
         (reason) => {
-          loading=false;
+          loading = false;
           return reason;
         }
       );
@@ -71,11 +71,11 @@
         <div class="flex justify-between">
           {name}
           {#if loading}
-            <Fa icon={faSpinner} rotate={true}/>
+            <Fa icon={faSpinner} rotate={true} />
           {/if}
         </div>
       </caption>
-      <thead class=" bg-surface-200-700-token ">
+      <thead class=" bg-surface-200-700-token">
         <tr>
           {#if !stop_id}
             <th class="sm:w-8 w-8" scope="col">P</th>
