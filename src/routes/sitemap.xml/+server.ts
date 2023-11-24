@@ -1,4 +1,4 @@
-import { stopNames } from "$lib/server/get_all_stops";
+import stopNames from "$lib/server/stopNames.json";
 export async function GET() {
   return new Response(
     `
